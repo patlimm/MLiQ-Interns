@@ -3,9 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/routes/app_route_names.dart';
-import 'package:mliq/theme/app_colors.dart';
 
-class LoginPage extends StatelessWidget with AppColors {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
@@ -14,7 +13,7 @@ class LoginPage extends StatelessWidget with AppColors {
       appBar: AppBar(
         title: Text(
           'Login Page',
-          style: TextStyle(color: primarySwatch.shade500),
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -33,7 +32,7 @@ class LoginPage extends StatelessWidget with AppColors {
             ElevatedButton(
               child: const Text('Theme Page'),
               onPressed: () {
-                context.goNamed(AppRouteNames.themePage);
+                context.pushNamed(AppRouteNames.themePage);
               },
             ),
           ],
