@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mliq/routes/app_route_config.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,12 +10,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'MLiQ',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.green,
       ),
-      home: Container(),
+      routerConfig: AppRouteConfig.router,
     );
   }
 }
