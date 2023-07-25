@@ -4,16 +4,18 @@ import 'package:mliq/theme/app_colors.dart';
 // Reference in implementuing this theme -Wrn
 // https://m2.material.io/design/color/
 
+// To access theme data use Theme.of(context)
+// e.g.
+// const primaryColor = Theme.of(context).colorScheme.primary
+// const disabledColor = Theme.of(context).disabledColor
+// You can also use the mixin AppColors
+// see theme/app_colors.dart
+// -Wrn
 class AppThemeData with AppColors {
-  // To access theme data use Theme.of(context)
-  // e.g.
-  // const primaryColor = Theme.of(context).colorScheme.primary
-  // const disabledColor = Theme.of(context).disabledColor
-  // You can also use the mixin AppColors
-  // see theme/app_colors.dart
-  // -Wrn
+  ThemeData get lightTheme => _lightTheme();
+  ThemeData get darkTheme => _darkTheme();
 
-  ThemeData lightTheme() {
+  ThemeData _lightTheme() {
     final primaryColor = primarySwatch.shade500;
     final primaryVariant = primarySwatch.shade700;
 
@@ -43,7 +45,7 @@ class AppThemeData with AppColors {
     );
   }
 
-  ThemeData darkTheme() {
+  ThemeData _darkTheme() {
     final primaryColor = darkSwatch.shade500;
     final primaryVariant = darkSwatch.shade700;
 
