@@ -8,6 +8,9 @@ class AppRouteNames {
   static const selectPracticeDoctor = 'selectPracticeDoctor';
   static const onboarding = 'onboarding';
 
+  // For Theme Page only
+  static const themePage = 'theme-page';
+
   // BottomNavigation Route names
   static const clinical = 'clinical';
   static const neuroScore = 'neuro-score';
