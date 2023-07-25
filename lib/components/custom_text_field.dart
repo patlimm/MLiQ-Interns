@@ -7,15 +7,16 @@ import 'package:mliq/theme/app_colors.dart';
 class CustomTextField extends StatelessWidget with AppColors {
   final TextEditingController inputController;
   final String label, hintText;
+
   bool obscureText;
 
   CustomTextField({
-    Key? key,
+    super.key,
     required this.inputController,
     required this.label,
     required this.hintText,
     this.obscureText = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
