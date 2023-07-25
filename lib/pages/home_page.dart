@@ -76,9 +76,9 @@ class _HomePageState extends State<HomePage> {
           child: BottomNavigationBar(
             selectedLabelStyle: TextStyle(fontSize: 10),
             unselectedLabelStyle: TextStyle(fontSize: 10),
-            selectedItemColor: Colors.blue,
+            selectedItemColor: Theme.of(context).colorScheme.secondary,
             selectedFontSize: 12,
-            unselectedItemColor: Colors.grey,
+            unselectedItemColor: Theme.of(context).disabledColor,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
             onTap: (int index) {
