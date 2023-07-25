@@ -20,16 +20,12 @@ import 'package:flutter/material.dart';
 // AppColors as mixin using the "with" keyword
 // -Wrn
 mixin AppColors {
-  static const int _primaryValue = 0xFFFF7412; // Shades of Orange
-  static const int _secondaryValue = 0xFF10A3D0; // Shades of Blue
-  // I'm Color blind so bare with me XD -Wrn
-
+  static const int _primaryValue = 0xFFFF7412;
+  static const int _secondaryValue = 0xFF10A3D0;
   static const int _darkValue = 0xFFFFBA89;
 
-  // Implement change in Theme Brightness here -Wrn
-  // e.g.
-  // get primarySwatch => isLightTheme ? _primarySwatch() : _darkSwatch();
   MaterialColor get primarySwatch => _primarySwatch();
+
   MaterialColor get secondarySwatch => _secondarySwatch();
 
   MaterialColor get darkSwatch => _darkSwatch();
@@ -70,6 +66,7 @@ mixin AppColors {
         },
       );
 
+  // Secondary Colors
   MaterialColor _secondarySwatch() => const MaterialColor(
         _secondaryValue,
         <int, Color>{
