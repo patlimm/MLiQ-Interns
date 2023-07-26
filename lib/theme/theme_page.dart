@@ -1,20 +1,22 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mliq/components/custom_icon_text.dart';
 import 'package:mliq/components/custom_text_field.dart';
+import 'package:mliq/providers/service_provider.dart';
+import 'package:mliq/theme/app_colors.dart';
 
-class ThemePage extends StatefulWidget {
+// ignore: must_be_immutable
+class ThemePage extends ConsumerWidget with AppColors {
   const ThemePage({super.key});
 
   @override
-  State<ThemePage> createState() => _ThemePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // watch for the state changes using
+    // ref.watch()
+    bool isDarkTheme = ref.watch(isDarkThemeProvider);
 
-class _ThemePageState extends State<ThemePage> {
-  bool _light = true;
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -31,25 +33,7 @@ class _ThemePageState extends State<ThemePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                CustomIconText(
-                  title: 'Vital Health',
-                  subtitle: 'Take a test',
-                  backgroudColor: Colors.yellow,
-                  foregroudColor: Colors.orange,
-                  icon: Icons.heart_broken_rounded,
-                  iconColor: Colors.redAccent,
-                ),
-                CustomIconText(
-                  backgroudColor: Colors.black,
-                  foregroudColor: Colors.grey,
-                  // icon: Icons.yard,
-                  // iconColor: Colors.green,
-                ),
-              ],
-            ),
+            _renderCustomIcons(),
             SizedBox(height: 26),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -70,20 +54,29 @@ class _ThemePageState extends State<ThemePage> {
               ),
             ),
             SizedBox(height: 20),
-            Switch(
-              value: _light,
-              onChanged: (bool value) {
-                setState(() {
-                  _light = value;
-                });
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _renderSwitchLabel(context, isDarkTheme),
+                Switch(
+                  value: isDarkTheme,
+                  onChanged: (bool value) {
+                    debugPrint(value.toString());
+                    // Get the state value from the isDarkThemeProvider
+                    // using ref.read()
+                    // then change the value of the state accordingly -Wrn
+                    ref.read(isDarkThemeProvider.notifier).state = value;
+                  },
+                ),
+              ],
             ),
             ElevatedButton(
               child: const Text("Don't Press Me!"),
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text("You're great at following instructions!"),
+                    content: Text(
+                        "You're great at following instructions, aren't you?"),
                   ),
                 );
               },
@@ -91,6 +84,50 @@ class _ThemePageState extends State<ThemePage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _renderSwitchLabel(BuildContext context, bool isDarkTheme) {
+    return Text(
+      '${isDarkTheme ? 'Dark' : 'Light'} Mode',
+      style: Theme.of(context).textTheme.titleMedium,
+      // style: TextStyle(
+      //   fontSize: 24,
+      //   fontWeight: FontWeight.bold,
+      //   // The two ff examples accomplishes the same thing.
+      //   //
+      //   // When you use the custom swatch in AppColors
+      //   // it's good to handle the color changes according to the current ThemeMode -Wrn
+      //   // e.g.
+      //   color: isDarkTheme ? darkSwatch.shade500 : primarySwatch.shade500,
+      //   //
+      //   // If you'll just use the primary color "shade500"
+      //   // just use the primary color from Theme.of(context) -Wrn
+      //   // e.g
+      //   // color: Theme.of(context).colorScheme.primary, // uncomment this to test
+      // ),
+    );
+  }
+
+  Widget _renderCustomIcons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: const [
+        CustomIconText(
+          title: 'Vital Health',
+          subtitle: 'Take a test',
+          backgroudColor: Colors.yellow,
+          foregroudColor: Colors.orange,
+          icon: Icons.heart_broken_rounded,
+          iconColor: Colors.redAccent,
+        ),
+        CustomIconText(
+          backgroudColor: Colors.black,
+          foregroudColor: Colors.grey,
+          // icon: Icons.yard,
+          // iconColor: Colors.green,
+        ),
+      ],
     );
   }
 }
