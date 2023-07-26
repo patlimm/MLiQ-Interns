@@ -26,9 +26,18 @@ class AppThemeData with AppColors {
     const backgroundColor = Color(0xFF121212);
     const errorColor = Color(0xFFB00020);
 
+    TextTheme sampleTextTheme = ThemeData.light().textTheme.copyWith(
+          titleMedium: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: primaryColor,
+          ),
+        );
+
     return ThemeData(
       brightness: Brightness.light,
       fontFamily: 'Poppins',
+      textTheme: sampleTextTheme,
       primarySwatch: primarySwatch,
       disabledColor: disabledColor,
       backgroundColor: backgroundColor,
@@ -56,9 +65,18 @@ class AppThemeData with AppColors {
     const backgroundColor = Color(0xFF121212);
     const errorColor = Color(0xFFCF6679);
 
+    TextTheme sampleTextTheme = ThemeData.light().textTheme.copyWith(
+          titleMedium: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: primaryColor,
+          ),
+        );
+
     return ThemeData(
       brightness: Brightness.dark,
       fontFamily: 'Poppins',
+      textTheme: sampleTextTheme,
       primarySwatch: darkSwatch,
       errorColor: errorColor,
       disabledColor: disabledColor,
