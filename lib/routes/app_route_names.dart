@@ -7,6 +7,7 @@ class AppRouteNames {
   static const payment = 'payment';
   static const selectPracticeDoctor = 'selectPracticeDoctor';
   static const onboarding = 'onboarding';
+  static const placeholder = 'placeholder';
 
   // BottomNavigation Route names
   static const clinical = 'clinical';

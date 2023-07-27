@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
                   subtitle: 'Take a test',
                   backgroudColor: Colors.yellow,
                   foregroudColor: Colors.orange,
-                  icon: Icons.heart_broken_rounded,
+                  // icon: Icons.heart_broken_rounded,
                   iconColor: Colors.redAccent,
                 ),
                 CustomIconText(
