@@ -15,6 +15,10 @@ class AccountPage extends StatelessWidget {
         ElevatedButton(
           child: const Text('Sample Page'),
           onPressed: () {
+            // call SamplePage()
+            // route that were declared in
+            // routes/account_tab/account_tab_route.dart
+            // -Wrn
             context.pushNamed(AppRouteNames.samplePage);
           },
         ),
