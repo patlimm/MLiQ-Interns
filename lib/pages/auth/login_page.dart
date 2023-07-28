@@ -23,9 +23,9 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              child: const Text(' Home Page '),
+              child: const Text(' Parent Page '),
               onPressed: () {
-                context.goNamed(AppRouteNames.clinical);
+                context.goNamed(AppRouteNames.parent);
               },
             ),
             SizedBox(height: 20),
