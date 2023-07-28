@@ -68,7 +68,7 @@ class AppRouteConfig {
       // Theme Page only
       GoRoute(
         name: AppRouteNames.themePage,
-        path: '/theme-page', // Onboarding Page
+        path: '/theme-page',
         builder: ((context, state) => const ThemePage()),
       ),
     ],
