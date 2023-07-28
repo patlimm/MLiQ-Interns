@@ -79,8 +79,9 @@ class _ParentPageState extends State<ParentPage> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(myRadius),
-              topLeft: Radius.circular(myRadius)),
+            topRight: Radius.circular(myRadius),
+            topLeft: Radius.circular(myRadius),
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
