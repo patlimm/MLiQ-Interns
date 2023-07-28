@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mliq/theme/app_colors.dart';
 
 // ignore: must_be_immutable
-class CustomTextField extends StatelessWidget with AppColors {
+class CustomTextField extends StatelessWidget with AppColorsMixin {
   final TextEditingController inputController;
   final String label, hintText;
 

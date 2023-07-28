@@ -8,7 +8,7 @@ import 'package:mliq/providers/service_provider.dart';
 import 'package:mliq/theme/app_colors.dart';
 
 // ignore: must_be_immutable
-class ThemePage extends ConsumerWidget with AppColors {
+class ThemePage extends ConsumerWidget with AppColorsMixin {
   const ThemePage({super.key});
 
   @override
@@ -90,22 +90,22 @@ class ThemePage extends ConsumerWidget with AppColors {
   Widget _renderSwitchLabel(BuildContext context, bool isDarkTheme) {
     return Text(
       '${isDarkTheme ? 'Dark' : 'Light'} Mode',
-      style: Theme.of(context).textTheme.titleMedium,
-      // style: TextStyle(
-      //   fontSize: 24,
-      //   fontWeight: FontWeight.bold,
-      //   // The two ff examples accomplishes the same thing.
-      //   //
-      //   // When you use the custom swatch in AppColors
-      //   // it's good to handle the color changes according to the current ThemeMode -Wrn
-      //   // e.g.
-      //   color: isDarkTheme ? darkSwatch.shade500 : primarySwatch.shade500,
-      //   //
-      //   // If you'll just use the primary color "shade500"
-      //   // just use the primary color from Theme.of(context) -Wrn
-      //   // e.g
-      //   // color: Theme.of(context).colorScheme.primary, // uncomment this to test
-      // ),
+      // style: Theme.of(context).textTheme.titleMedium,
+      style: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        // The two ff examples accomplishes the same thing.
+        //
+        // When you use the custom swatch in AppColors
+        // it's good to handle the color changes according to the current ThemeMode -Wrn
+        // e.g.
+        // color: isDarkTheme ? darkSwatch.shade500 : primarySwatch.shade500,
+        //
+        // If you'll just use the primary color "shade500"
+        // just use the primary color from Theme.of(context) -Wrn
+        // e.g
+        color: Theme.of(context).colorScheme.primary, // uncomment this to test
+      ),
     );
   }
 

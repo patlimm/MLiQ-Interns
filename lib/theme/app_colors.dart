@@ -11,15 +11,8 @@ import 'package:flutter/material.dart';
 // e.g. Container(color: primarySwatch.shade500);
 // Note: It's still recommended to access Colors via Theme.of(context)
 // -Wrn
-//
-// Implement a ChangeNotifer here
-// or a State Management to listen for ThemeMode changes
-// so that when ThemeMode changes from light to dark and vice versa
-// getters will return the swatches accordingly.
-// Note: This change will only affect the Widgets that used
-// AppColors as mixin using the "with" keyword
-// -Wrn
-mixin AppColors {
+
+mixin AppColorsMixin {
   static const int _primaryValue = 0xFFFF7412;
   static const int _secondaryValue = 0xFF10A3D0;
   static const int _darkValue = 0xFFFFBA89;
@@ -30,10 +23,13 @@ mixin AppColors {
 
   MaterialColor get darkSwatch => _darkSwatch();
 
+  static MaterialColor get primarySwatchExtension => _primarySwatch();
+  static MaterialColor get darkSwatchExtension => _darkSwatch();
+
   // Material Color Swatches
 
   // Light Theme primary color swatch
-  MaterialColor _primarySwatch() => const MaterialColor(
+  static MaterialColor _primarySwatch() => const MaterialColor(
         _primaryValue,
         <int, Color>{
           50: Color(0xFFFFEEE3),
@@ -50,7 +46,7 @@ mixin AppColors {
       );
 
   // Dark Theme primary color swatch
-  MaterialColor _darkSwatch() => const MaterialColor(
+  static MaterialColor _darkSwatch() => const MaterialColor(
         _darkValue,
         <int, Color>{
           50: Color(0xFFFFF7F1),
@@ -67,7 +63,7 @@ mixin AppColors {
       );
 
   // Secondary Colors
-  MaterialColor _secondarySwatch() => const MaterialColor(
+  static MaterialColor _secondarySwatch() => const MaterialColor(
         _secondaryValue,
         <int, Color>{
           50: Color(0xFFE2F4F9),
