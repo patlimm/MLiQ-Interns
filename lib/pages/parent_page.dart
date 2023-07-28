@@ -14,14 +14,14 @@ class ParentPage extends StatefulWidget {
 class _ParentPageState extends State<ParentPage> {
   int _selectedIndex = 0;
   final PageController _pageController = PageController();
-  late List<BottomNavigationBarItem> _destinations;
+  late List<BottomNavigationBarItem> _bottomNavigationBarItems;
   late List<Widget> _screens;
 
   @override
   void initState() {
     super.initState();
 
-    _initDestinations();
+    _initBottomNavigationBarItems();
     _initScreens();
   }
 
@@ -41,8 +41,8 @@ class _ParentPageState extends State<ParentPage> {
     ];
   }
 
-  void _initDestinations() {
-    _destinations = const [
+  void _initBottomNavigationBarItems() {
+    _bottomNavigationBarItems = const [
       BottomNavigationBarItem(
         icon: Icon(Icons.medical_services_outlined),
         activeIcon: Icon(Icons.medical_services),
@@ -105,7 +105,7 @@ class _ParentPageState extends State<ParentPage> {
             type: BottomNavigationBarType.fixed,
             onTap: _animatePageChange,
             currentIndex: _selectedIndex,
-            items: _destinations,
+            items: _bottomNavigationBarItems,
           ),
         ),
       ),
