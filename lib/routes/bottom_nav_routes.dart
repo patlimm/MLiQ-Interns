@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mliq/pages/home_page.dart';
 import 'package:mliq/pages/parent_page.dart';
 import 'package:mliq/routes/app_route_names.dart';
 
-// This class holds the routes for Bottom Navigation Bar -Wrn
+//
+//
+// DEPRECATED DON'T USE -Wrn
+//
+//
+
 class BottomNavRoutes {
   static Widget _placeHolderWidget(title) => Center(
         child: Text(title),
@@ -13,14 +17,8 @@ class BottomNavRoutes {
   static shellRoute(GlobalKey<NavigatorState> shellNavigatorKey) => ShellRoute(
         navigatorKey: shellNavigatorKey,
         pageBuilder: (context, state, child) {
-          return NoTransitionPage(
-            // Call the Widget who will hold the
-            // BottomNavigation here
-            // then pass @child as param -Wrn
-            child: HomePage(
-              location: state.matchedLocation,
-              child: child,
-            ),
+          return const NoTransitionPage(
+            child: ParentPage(),
           );
         },
         routes: [

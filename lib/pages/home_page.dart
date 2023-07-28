@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/routes/app_route_names.dart';
 
+//
+//
+// DEPRECATED DON'T USE -Wrn
+//
+//
+
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   String location;
