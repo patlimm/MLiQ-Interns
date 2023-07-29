@@ -2,27 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'dart:math';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mliq/components/custom_text_field.dart';
+import 'package:mliq/providers/service_provider.dart';
+
+import 'package:mliq/theme/app_colors.dart';
+import 'package:mliq/theme/app_theme_data.dart';
 // import 'package:go_router/go_router.dart';
 // import 'package:mliq/components/custom_icon_text.dart';
 // import 'package:mliq/routes/app_route_names.dart';
 
-class OTP extends StatelessWidget {
-  const OTP({super.key});
-  // String numberGenerator() =>
-  @override
-  Widget build(BuildContext context) {
-    return const OTPWidget();
-  }
-}
+// ignore: must_be_immutable
+class OTP extends ConsumerWidget with AppColorsMixin {
+  OTP({super.key});
 
-class OTPWidget extends StatefulWidget {
-  const OTPWidget({super.key});
-
-  @override
-  State<OTPWidget> createState() => _OTPWidgetState();
-}
-
-class _OTPWidgetState extends State<OTPWidget> {
   String input = "";
   String code = "";
 
@@ -35,16 +28,16 @@ class _OTPWidgetState extends State<OTPWidget> {
         ),
       ),
     );
+
+    // put otp sender function here -KaiKai
   }
 
   @override
-  void initState() {
-    super.initState();
-    otpGenerator();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isDarkTheme = ref.watch(isDarkThemeProvider);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      otpGenerator();
+    });
     return Scaffold(
       // appBar
       appBar: AppBar(
@@ -77,12 +70,12 @@ class _OTPWidgetState extends State<OTPWidget> {
             // Body's main text
             const Padding(
               padding: EdgeInsets.all(20.0),
-              child: Row(
+              child: Column(
                 children: [
                   Text(
                     "2-Step Verification",
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -90,7 +83,8 @@ class _OTPWidgetState extends State<OTPWidget> {
                     "A text message with a verification code was just sent to ****-****-*98",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -98,16 +92,30 @@ class _OTPWidgetState extends State<OTPWidget> {
             ),
 
             // 6-digit Inputs
+            const SizedBox(height: 22),
             OtpTextField(
               numberOfFields: 6,
+              keyboardType: TextInputType.number,
               hasCustomInputDecoration: true,
+              cursorColor: Colors.blue,
               decoration: const InputDecoration(
                 contentPadding: EdgeInsets.symmetric(vertical: 0),
-                fillColor: Color(0x8A000000),
                 border: OutlineInputBorder(
+                  borderSide: BorderSide(width: 0),
+                  borderRadius: BorderRadius.all(Radius.circular(13)),
+                ),
+                focusColor: Colors.blue,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(Radius.circular(13)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue, width: 2.0),
                   borderRadius: BorderRadius.all(Radius.circular(13)),
                 ),
                 counterText: "",
+                filled: true,
+                hintText: "x",
               ),
               showFieldAsBox: true,
               onCodeChanged: (String code) {},
@@ -120,6 +128,7 @@ class _OTPWidgetState extends State<OTPWidget> {
             ),
 
             // Submit Button
+            const SizedBox(height: 26),
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -136,11 +145,13 @@ class _OTPWidgetState extends State<OTPWidget> {
                     },
                   )
                 },
-                style: ButtonStyle(
+                style: TextButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
                   alignment: Alignment.center,
-                  backgroundColor:
-                      MaterialStatePropertyAll(Colors.orange.shade800),
-                  padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
+                  backgroundColor: Colors.orange.shade800,
+                  padding: const EdgeInsets.all(20),
                 ),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -149,13 +160,16 @@ class _OTPWidgetState extends State<OTPWidget> {
                       "Submit",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold),
                     ),
-                    Icon(
-                      Icons.chevron_right,
-                      color: Colors.white,
-                      size: 30,
+                    Padding(
+                      padding: EdgeInsets.all(6.0),
+                      child: Icon(
+                        Icons.chevron_right,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                     )
                   ],
                 ),
@@ -163,6 +177,7 @@ class _OTPWidgetState extends State<OTPWidget> {
             ),
 
             // Resend Button
+            const SizedBox(height: 52),
             TextButton(
               onPressed: () {
                 otpGenerator();
@@ -176,7 +191,14 @@ class _OTPWidgetState extends State<OTPWidget> {
                   },
                 );
               },
-              child: const Text("Resend OTP"),
+              child: const Text(
+                "Resend OTP",
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
             )
           ],
         ),
@@ -184,3 +206,19 @@ class _OTPWidgetState extends State<OTPWidget> {
     );
   }
 }
+
+// class OTP extends  with AppColorsMixin {
+//   const OTP({super.key});
+
+//   @override
+//   State<OTP> createState() => _OTPState();
+// }
+
+// class _OTPState extends State<OTP> {
+  
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return 
+//   }
+// }
