@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/pages/auth/login_page.dart';
+import 'package:mliq/pages/otp/otp_page.dart';
 import 'package:mliq/pages/splash_screen/splash_screen.dart';
 import 'package:mliq/routes/app_route_names.dart';
 import 'package:mliq/routes/bottom_nav_routes.dart';
@@ -29,7 +30,7 @@ class AppRouteConfig {
       GoRoute(
         name: AppRouteNames.otp,
         path: '/otp', // OTP Page
-        builder: ((context, state) => Container()),
+        builder: ((context, state) => const OTP()),
       ),
       GoRoute(
         name: AppRouteNames.subscription,
