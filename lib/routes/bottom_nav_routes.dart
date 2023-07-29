@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/pages/home_page.dart';
 import 'package:mliq/pages/landing_screen.dart';
-import 'package:mliq/pages/placheholder.dart';
 // import 'package:mliq/pages/parent_page.dart';
 import 'package:mliq/routes/app_route_names.dart';
 
@@ -11,11 +10,31 @@ class BottomNavRoutes {
   static Widget _placeHolderWidget(title) => Center(
         child: Text(title),
       );
-  static Widget _landingScreen() => const Center(
-        child: LandingScreen(),
-      );
-  static Widget _placeHolderScreen() => const Center(
-        child: PlaceHolderWidget(),
+
+  // landing screen in clinical
+  static Widget _landingScreen() => Scaffold(
+        body: Stack(
+          children: [
+            const Center(
+              //will turn this into replaceable screen
+              child: LandingScreen(),
+            ),
+            // this will be the app bar for clinical route
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: AppBar(
+                foregroundColor: Colors.black,
+                leading: const Icon(Icons.arrow_back_ios),
+                backgroundColor: Colors.transparent,
+                centerTitle: true,
+                title: const Text('MLiQ'),
+                elevation: 0, // Set elevation to 0 to remove the shadow
+              ),
+            ),
+          ],
+        ),
       );
 
   static shellRoute(GlobalKey<NavigatorState> shellNavigatorKey) => ShellRoute(
@@ -37,12 +56,6 @@ class BottomNavRoutes {
             name: AppRouteNames.clinical,
             path: '/clinical',
             builder: ((context, state) => _landingScreen()),
-          ),
-          GoRoute(
-            parentNavigatorKey: shellNavigatorKey,
-            name: AppRouteNames.placeholder,
-            path: '/placeholder',
-            builder: ((context, state) => _placeHolderScreen()),
           ),
           GoRoute(
             name: AppRouteNames.neuroScore,
