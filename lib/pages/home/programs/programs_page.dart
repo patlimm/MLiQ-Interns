@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'programs_tabs.dart';
+import 'package:mliq/providers/service_provider.dart';
 
-class ProgramsPage extends StatelessWidget {
+class ProgramsPage extends ConsumerWidget {
   const ProgramsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isDarkTheme = ref.watch(isDarkThemeProvider);
+
     return ProviderScope(
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: Stack(
           children: [
             // Wave on the right side
@@ -36,15 +38,15 @@ class ProgramsPage extends StatelessWidget {
                     elevation: 0.0,
                     toolbarHeight: 120,
                     centerTitle: true,
-                    title: Image.asset(
-                      'assets/logo/logo.png',
-                      height: 43,
-                      width: 85.1,
-                    ),
+                    title: Image.asset(isDarkTheme
+                        ? 'assets/logo/logo-dark.png'
+                        : 'assets/logo/logo.png'),
                     actions: <Widget>[
                       IconButton(
                         icon: Image.asset(
-                          'assets/message_icon/group9.png',
+                          isDarkTheme
+                              ? 'assets/message_icon/group9-dark.png'
+                              : 'assets/message_icon/group9.png',
                           height: 24,
                           width: 24,
                         ),
@@ -53,13 +55,11 @@ class ProgramsPage extends StatelessWidget {
                     ],
                   ),
                   // Programs
-                  const Text(
+                  Text(
                     "Programs",
-                    style: TextStyle(
-                        color: Color(0xff1e1e1e),
-                        fontWeight: FontWeight.w900,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
                         fontFamily: "Poppins",
-                        fontStyle: FontStyle.normal,
                         fontSize: 28.0),
                     textAlign: TextAlign.center,
                   ),
@@ -71,33 +71,32 @@ class ProgramsPage extends StatelessWidget {
                     height: 34,
                     child: RichText(
                       textAlign: TextAlign.center,
-                      text: const TextSpan(
-                        style: TextStyle(
-                          wordSpacing: 2.0,
-                          color: Color(0xff1e1e1e),
-                          height: 1.4,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12.0,
-                        ),
+                      text: TextSpan(
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              wordSpacing: 1.5,
+                              height: 1.4,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12.0,
+                            ),
                         children: [
-                          TextSpan(
+                          const TextSpan(
                             text:
                                 "it is important to know WHY, HOW, and WHAT to do in\n"
                                 "this section. Let`s start at the beginning,",
                           ),
                           TextSpan(
                             style: TextStyle(
-                              color: Color(0xff11a4d1),
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                             text: " click here",
                           ),
-                          TextSpan(text: "."),
+                          const TextSpan(text: "."),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 30),
                   const Expanded(
                     child: ProgramsTabBar(),
                   ),

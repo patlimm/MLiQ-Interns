@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/pages/auth/login_page.dart';
 import 'package:mliq/pages/parent_page.dart';
+import 'package:mliq/pages/home/programs/programs_page.dart';
 import 'package:mliq/pages/splash_screen/splash_screen.dart';
 import 'package:mliq/routes/account_tab/account_tab_route.dart';
 import 'package:mliq/routes/app_route_names.dart';
@@ -56,8 +57,8 @@ class AppRouteConfig {
       ),
       GoRoute(
         name: AppRouteNames.selectPracticeDoctor,
-        path: '/selectPracticeDoctor', // Selecta Practice and Doctor Pages
-        builder: ((context, state) => Container()),
+        path: '/selectPracticeDoctor', // Select a Practice and Doctor Pages
+        builder: ((context, state) => const ProgramsPage()),
       ),
       GoRoute(
         name: AppRouteNames.onboarding,
