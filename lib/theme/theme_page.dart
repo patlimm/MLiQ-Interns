@@ -118,7 +118,7 @@ class ThemePage extends ConsumerWidget with AppColorsMixin {
           subtitle: 'Take a test',
           backgroudColor: Colors.yellow,
           foregroudColor: Colors.orange,
-          icon: Icons.heart_broken_rounded,
+          icon: 'lib/assets/icons/heart.png',
           iconColor: Colors.redAccent,
         ),
         CustomIconText(

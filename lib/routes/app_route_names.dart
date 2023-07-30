@@ -7,6 +7,15 @@ class AppRouteNames {
   static const payment = 'payment';
   static const selectPracticeDoctor = 'selectPracticeDoctor';
   static const onboarding = 'onboarding';
+  static const messages = 'messages';
+
+  //for clinical pages
+  static const vitalHealth = 'vital-health';
+  static const flourish = 'flourish';
+  static const brainHealth = 'brain-health';
+  static const nourish = 'nourish';
+  static const movement = 'movement';
+  static const programsClinical = 'programs-clinical';
 
   // For Demo Pages only
   static const themePage = 'theme-page';
