@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/routes/app_route_names.dart';
 
+//
+//
+// DEPRECATED DON'T USE -Wrn
+//
+//
+
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   String location;
@@ -76,9 +82,9 @@ class _HomePageState extends State<HomePage> {
           child: BottomNavigationBar(
             selectedLabelStyle: TextStyle(fontSize: 10),
             unselectedLabelStyle: TextStyle(fontSize: 10),
-            selectedItemColor: Colors.blue,
+            selectedItemColor: Theme.of(context).colorScheme.secondary,
             selectedFontSize: 12,
-            unselectedItemColor: Colors.grey,
+            unselectedItemColor: Theme.of(context).disabledColor,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
             onTap: (int index) {
