@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/pages/home_page.dart';
 import 'package:mliq/pages/parent_page.dart';
+import 'package:mliq/pages/programs/programs_page.dart';
 import 'package:mliq/routes/app_route_names.dart';
 
 // This class holds the routes for Bottom Navigation Bar -Wrn
@@ -41,7 +42,7 @@ class BottomNavRoutes {
             name: AppRouteNames.programs,
             path: '/programs',
             builder: ((context, state) =>
-                _placeHolderWidget(AppRouteNames.programs)),
+                const ProgramsPage()),
           ),
           GoRoute(
             name: AppRouteNames.referral,
