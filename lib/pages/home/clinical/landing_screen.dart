@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mliq/components/my_priorities.dart';
 import 'package:mliq/routes/app_route_names.dart';
 
 import '../../../components/custom_icon_text.dart';
@@ -164,29 +165,49 @@ class ClinicalParentPage extends ConsumerWidget {
                           backgroudColor: const Color(0xff594b4b),
                           foregroudColor: const Color(0xff4c3b3b),
                         ),
-                        const SizedBox(height: 10.0),
+                      ],
+                    ),
+                    const SizedBox(height: 30.0),
+                    // the content below the icons
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         const Center(
                           child: Text(
                             'My Priorities',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 28.0,
+                              fontSize: 28,
                             ),
                           ),
                         ),
-                        const Column(
-                          children: [
-                            Text(
-                              'Prenatal Wellness Care',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ],
+                        const SizedBox(height: 20.0),
+                        const Text(
+                          'Prenatal Welness Care',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        PrenatalWelnessCare(
+                          title: 'Breast Examination',
+                          onTap: () {},
+                        ),
+                        PrenatalWelnessCare(
+                          title: 'Pelvic Examination',
+                          onTap: () {},
+                        ),
+                        PrenatalWelnessCare(
+                          title: 'Sample Examination',
+                          onTap: () {},
+                        ),
+                        PrenatalWelnessCare(
+                          title: 'Sample Examination',
+                          onTap: () {},
                         ),
                       ],
                     ),
+                    const SizedBox(height: 20.0),
                   ],
                 ),
               ),
