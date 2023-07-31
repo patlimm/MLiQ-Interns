@@ -1,21 +1,50 @@
 // landing screen in clinical
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/routes/app_route_names.dart';
 
 import '../../../components/custom_icon_text.dart';
+import '../../../providers/service_provider.dart';
 
-class ClinicalParentPage extends StatelessWidget {
+class ClinicalParentPage extends ConsumerWidget {
   const ClinicalParentPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isDarkTheme = ref.watch(isDarkThemeProvider);
+    final bgImage = isDarkTheme
+        ? const AssetImage('lib/assets/clinical/bgdark.png')
+        : const AssetImage('lib/assets/clinical/bg.png');
+    final Widget messageIcon = isDarkTheme
+        ? Image.asset(
+            'lib/assets/clinical/icons/messagedark.png',
+            width: 24,
+            height: 24,
+          )
+        : SvgPicture.asset(
+            'lib/assets/clinical/icons/message.svg',
+            width: 24,
+            height: 24,
+          );
+    final Widget logo = isDarkTheme
+        ? Image.asset(
+            'lib/assets/clinical/icons/logodark.png',
+            width: 85,
+            height: 43,
+          )
+        : SvgPicture.asset(
+            'lib/assets/clinical/icons/logolight.svg',
+            width: 85,
+            height: 43,
+          );
+
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('lib/assets/clinical/bg.png'),
+            image: bgImage,
             fit: BoxFit.cover,
           ),
         ),
@@ -30,15 +59,16 @@ class ClinicalParentPage extends StatelessWidget {
               //     // Navigate back
               //   },
               // ),
+              centerTitle: true,
+              title: Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: logo,
+              ),
               actions: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(right: 10.0),
                   child: IconButton(
-                    icon: SvgPicture.asset(
-                      'lib/assets/clinical/icons/message.svg',
-                      width: 24,
-                      height: 24,
-                    ),
+                    icon: messageIcon,
                     onPressed: () {
                       context.goNamed(AppRouteNames.messages);
                     },
@@ -46,18 +76,13 @@ class ClinicalParentPage extends StatelessWidget {
                 ),
               ],
               backgroundColor: Colors.transparent,
-              centerTitle: true,
-              title: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Image.asset('lib/assets/clinical/icons/logo.png'),
-              ),
-              elevation: 0,
             ),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
                   children: [
+                    const SizedBox(height: 9.0),
                     const Text(
                       'Clinical Assessment',
                       style: TextStyle(
@@ -138,6 +163,27 @@ class ClinicalParentPage extends StatelessWidget {
                           subtitle: 'Take a Test',
                           backgroudColor: const Color(0xff594b4b),
                           foregroudColor: const Color(0xff4c3b3b),
+                        ),
+                        const SizedBox(height: 10.0),
+                        const Center(
+                          child: Text(
+                            'My Priorities',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 28.0,
+                            ),
+                          ),
+                        ),
+                        const Column(
+                          children: [
+                            Text(
+                              'Prenatal Wellness Care',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
