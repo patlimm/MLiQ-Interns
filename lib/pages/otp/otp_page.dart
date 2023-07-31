@@ -1,25 +1,25 @@
+import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mliq/components/custom_text_field.dart';
+import 'package:mliq/pages/auth/login_page.dart';
 import 'package:mliq/providers/service_provider.dart';
-
+import 'package:mliq/providers/otp/otp_providers.dart';
 import 'package:mliq/theme/app_colors.dart';
-import 'package:mliq/theme/app_theme_data.dart';
-// import 'package:go_router/go_router.dart';
-// import 'package:mliq/components/custom_icon_text.dart';
-// import 'package:mliq/routes/app_route_names.dart';
 
 // ignore: must_be_immutable
 class OTP extends ConsumerWidget with AppColorsMixin {
   OTP({super.key});
 
-  String input = "";
+  List<TextEditingController> userInput =
+      List.generate(6, (index) => TextEditingController());
+  List<FocusNode> inputNodes = List.generate(6, (index) => FocusNode());
   String code = "";
+  String phone = "+639123456789";
+  // final isSubmitEnabled = StateProvider<bool>((ref) => false);
 
-  void otpGenerator() {
+  Future<bool> otpGenerator() {
     code = String.fromCharCodes(
       Iterable.generate(
         6,
@@ -30,42 +30,78 @@ class OTP extends ConsumerWidget with AppColorsMixin {
     );
 
     // put otp sender function here -KaiKai
+    return _sendSMS();
+  }
+
+  Future<bool> _sendSMS() async {
+    // String result = await sendSMS(
+    //   message: code,
+    //   recipients: [
+    //     phone,
+    //   ],
+    // ).catchError((onError) {
+    //   print(onError);
+    // });
+    // print(result);
+    var future = Future.delayed(const Duration(seconds: 5), () => true);
+    return future;
+  }
+
+  String inputFormatter() {
+    String formattedInputs = "";
+    for (int index = 0; index < 6; index++) {
+      formattedInputs += userInput[index].text;
+    }
+    return formattedInputs;
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkTheme = ref.watch(isDarkThemeProvider);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      otpGenerator();
+    bool isSubmitEnabled = ref.watch(isSubmitEnabledProvider);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (await otpGenerator()) {
+        for (int index = 0; index < 6; index++) {
+          userInput[index].text = code[index];
+        }
+      }
     });
     return Scaffold(
       // appBar
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
-          icon: const Image(
-            image: AssetImage('lib/assets/otp/path3@2x.png'),
-            height: 20,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            );
+          },
+          icon: const Icon(
+            Icons.chevron_left,
           ),
+          color: isDarkTheme ? Colors.white : Colors.black,
           iconSize: 45.0,
         ),
-        title: const Image(
-          image: AssetImage('lib/assets/otp/logo.png'),
+        title: Image(
+          image: AssetImage(
+              'lib/assets/otp/${isDarkTheme ? 'dark_logo.png' : 'logo.png'}'),
           fit: BoxFit.contain,
           height: 40,
         ),
         toolbarHeight: 55,
         centerTitle: true,
-        backgroundColor: Colors.white,
         elevation: 0,
+        backgroundColor: isDarkTheme
+            ? Theme.of(context).colorScheme.background
+            : Colors.white,
       ),
 
       // body
       body: Container(
-        color: const Color(0xFFFFFFFF),
+        // color: const Color(0xFFFFFFFF),
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             // Body's main text
             const Padding(
@@ -93,38 +129,62 @@ class OTP extends ConsumerWidget with AppColorsMixin {
 
             // 6-digit Inputs
             const SizedBox(height: 22),
-            OtpTextField(
-              numberOfFields: 6,
-              keyboardType: TextInputType.number,
-              hasCustomInputDecoration: true,
-              cursorColor: Colors.blue,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 0),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0),
-                  borderRadius: BorderRadius.all(Radius.circular(13)),
-                ),
-                focusColor: Colors.blue,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(Radius.circular(13)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                  borderRadius: BorderRadius.all(Radius.circular(13)),
-                ),
-                counterText: "",
-                filled: true,
-                hintText: "x",
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                6,
+                (index) {
+                  return SizedBox(
+                    width: 50,
+                    child: TextField(
+                      controller: userInput[index],
+                      focusNode: inputNodes[index],
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      maxLength: 1,
+                      cursorColor: Colors.blue,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(vertical: 15),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(width: 0),
+                          borderRadius: BorderRadius.all(Radius.circular(13)),
+                        ),
+                        focusColor: Colors.blue,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.circular(13)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.blue, width: 2.0),
+                          borderRadius: BorderRadius.all(Radius.circular(13)),
+                        ),
+                        counterText: "",
+                        filled: true,
+                        hintText: "x",
+                      ),
+                      onChanged: (value) {
+                        if (value.isNotEmpty && index < 5) {
+                          FocusScope.of(context).nextFocus();
+                        } else if (value.isEmpty && index > 0) {
+                          FocusScope.of(context).previousFocus();
+                        }
+
+                        if (index < 6) {
+                          ref.read(isSubmitEnabledProvider.notifier).state =
+                              false;
+                        } else {
+                          ref.read(isSubmitEnabledProvider.notifier).state =
+                              true;
+                        }
+                      },
+                    ),
+                  );
+                },
               ),
-              showFieldAsBox: true,
-              onCodeChanged: (String code) {},
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              onSubmit: (String verificationCode) {
-                input = verificationCode;
-              },
             ),
 
             // Submit Button
@@ -132,25 +192,29 @@ class OTP extends ConsumerWidget with AppColorsMixin {
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: TextButton(
+              child: ElevatedButton(
                 onPressed: () => {
                   showDialog(
                     context: context,
                     builder: (context) {
                       return AlertDialog(
                         title: const Text("Verification Code"),
-                        content:
-                            Text('Code entered is $input and the otp is $code'),
+                        content: Text(
+                            'Code entered is ${inputFormatter()} and the otp is $code'),
                       );
                     },
                   )
                 },
-                style: TextButton.styleFrom(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isSubmitEnabled
+                      ? Theme.of(context).colorScheme.primary
+                      // ? Colors.amber[800]
+                      : Theme.of(context).disabledColor,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
                   alignment: Alignment.center,
-                  backgroundColor: Colors.orange.shade800,
+                  // backgroundColor: Colors.orange.shade800,
                   padding: const EdgeInsets.all(20),
                 ),
                 child: const Row(
@@ -159,15 +223,15 @@ class OTP extends ConsumerWidget with AppColorsMixin {
                     Text(
                       "Submit",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
+                          // color: Colors.white,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: EdgeInsets.all(6.0),
                       child: Icon(
                         Icons.chevron_right,
-                        color: Colors.white,
+                        // color: Colors.white,
                         size: 20,
                       ),
                     )
@@ -180,23 +244,45 @@ class OTP extends ConsumerWidget with AppColorsMixin {
             const SizedBox(height: 52),
             TextButton(
               onPressed: () {
-                otpGenerator();
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text("OTP has been resent"),
-                      content: Text("New OTP: $code"),
-                    );
-                  },
-                );
+                try {
+                  otpGenerator();
+                } catch (e) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const AlertDialog(
+                        title: Text("Error"),
+                        content: Text("Something went wrong, please try again"),
+                      );
+                    },
+                  );
+                } finally {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text("OTP has been resent"),
+                        content: Text("New OTP: $code"),
+                      );
+                    },
+                  );
+                  Future.delayed(
+                    const Duration(seconds: 5),
+                    () => {
+                      for (int index = 0; index < 6; index++)
+                        {userInput[index].text = code[index]}
+                    },
+                  );
+                }
               },
-              child: const Text(
+              child: Text(
                 "Resend OTP",
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: isDarkTheme
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.black,
                 ),
               ),
             )
@@ -205,6 +291,12 @@ class OTP extends ConsumerWidget with AppColorsMixin {
       ),
     );
   }
+
+  // @override
+  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  //   super.debugFillProperties(properties);
+  //   properties.add(DiagnosticsProperty<Future<String>>('result', result));
+  // }
 }
 
 // class OTP extends  with AppColorsMixin {
@@ -215,10 +307,9 @@ class OTP extends ConsumerWidget with AppColorsMixin {
 // }
 
 // class _OTPState extends State<OTP> {
-  
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return 
+//     return
 //   }
 // }
