@@ -17,6 +17,15 @@ mixin AppColorsMixin {
   static const int _secondaryValue = 0xFF10A3D0;
   static const int _darkValue = 0xFFFFBA89;
 
+  // Custom colors
+  static const int _navBarValue = 0xFF0F0F11;
+  static const int _appBackgroundValue = 0xFF13131C;
+  static const int _cardValue = 0xFFFFFFFF;
+
+  Color get navBarColor => const Color(_navBarValue);
+  Color get appBackgroundColor => const Color(_appBackgroundValue);
+  Color get cardColor => const Color(_cardValue).withOpacity(0.02);
+
   MaterialColor get primarySwatch => _primarySwatch();
 
   MaterialColor get secondarySwatch => _secondarySwatch();

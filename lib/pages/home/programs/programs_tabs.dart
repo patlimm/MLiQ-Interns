@@ -26,6 +26,7 @@ class ProgramsTabBar extends ConsumerWidget {
               },
             ),
             unselectedLabelColor: Theme.of(context).disabledColor,
+            labelColor: Theme.of(context).textTheme.bodyLarge?.color,
             labelStyle: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
@@ -74,7 +75,9 @@ class ProgramsTabBar extends ConsumerWidget {
                       child: Container(
                         height: 50,
                         decoration: BoxDecoration(
-                          color: isDarkTheme ? Colors.teal : Colors.white,
+                          color: isDarkTheme
+                              ? Theme.of(context).cardColor
+                              : Colors.white,
                           borderRadius: BorderRadius.circular(9),
                           boxShadow: const [
                             BoxShadow(
@@ -91,11 +94,13 @@ class ProgramsTabBar extends ConsumerWidget {
                               Expanded(
                                 child: Text(
                                   historyList[index],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                     fontFamily: "Poppins",
-                                    color: Color(0xff1e1e1e),
+                                    color: isDarkTheme
+                                        ? Colors.grey
+                                        : Colors.black,
                                   ),
                                 ),
                               ),

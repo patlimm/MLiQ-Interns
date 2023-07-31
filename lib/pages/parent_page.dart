@@ -98,6 +98,7 @@ class _ParentPageState extends State<ParentPage> {
             topRight: Radius.circular(myRadius),
           ),
           child: BottomNavigationBar(
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             selectedLabelStyle: TextStyle(fontSize: 10),
             unselectedLabelStyle: TextStyle(fontSize: 10),
             selectedItemColor: Theme.of(context).colorScheme.secondary,
