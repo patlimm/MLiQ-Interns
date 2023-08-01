@@ -48,6 +48,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
       body: PageView.builder(
         itemCount: 6,
         controller: _controller,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (content, index) {
           return Stack(
             children: [
