@@ -17,3 +17,12 @@ final historyListProvider = StateProvider<List<String>>((ref) => [
       "Pregnancy",
       "Add more items to the initial list as needed",
     ]);
+
+final specialtyProgramListProvider = StateProvider<List<String>>((ref) => [
+      "Alzheimer's",
+      "Brain Health",
+      "Cleanse / Fatigue",
+      "Exercise",
+      "Four Core Eating Habits",
+      "Add more items to the initial list as needed",
+    ]);
