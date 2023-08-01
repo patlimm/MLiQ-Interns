@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/pages/auth/login_page.dart';
+import 'package:mliq/pages/selectdoctor.dart';
 import 'package:mliq/pages/splash_screen/splash_screen.dart';
 import 'package:mliq/routes/app_route_names.dart';
 import 'package:mliq/routes/bottom_nav_routes.dart';
@@ -40,6 +41,11 @@ class AppRouteConfig {
         name: AppRouteNames.selectPracticeDoctor,
         path: '/selectPracticeDoctor', // Selecta Practice and Doctor Pages
         builder: ((context, state) => Container()),
+      ),
+      GoRoute(
+        name: AppRouteNames.selectdoctor,
+        path: '/selectdoctor', // Select a Doctor Pages
+        builder: ((context, state) => const Selectdoctor()),
       ),
       GoRoute(
         name: AppRouteNames.onboarding,
