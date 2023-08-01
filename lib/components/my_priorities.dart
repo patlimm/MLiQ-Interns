@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mliq/providers/service_provider.dart';
 
+
+
+// DEPRECATED
 class PrenatalWelnessCare extends ConsumerWidget {
   final String title;
   final GestureTapCallback? onTap;
@@ -16,6 +19,7 @@ class PrenatalWelnessCare extends ConsumerWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
+      shadowColor: isDarkTheme ? const Color(0x1a000000) : Colors.black,
       color: tileColor,
       elevation: 5,
       child: ListTile(

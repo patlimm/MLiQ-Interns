@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mliq/components/my_priorities.dart';
+import 'package:mliq/pages/home/clinical/clinical_cards.dart';
 import 'package:mliq/routes/app_route_names.dart';
 
 import '../../../components/custom_icon_text.dart';
@@ -53,7 +53,6 @@ class ClinicalParentPage extends ConsumerWidget {
           slivers: <Widget>[
             SliverAppBar(
               pinned: false,
-              foregroundColor: Colors.black,
               // leading: IconButton(
               //   icon: const Icon(Icons.arrow_back_ios_new),
               //   onPressed: () {
@@ -122,8 +121,12 @@ class ClinicalParentPage extends ConsumerWidget {
                           icon: 'lib/assets/clinical/icons/tree.png',
                           title: 'Flourish',
                           subtitle: 'Take a Test',
-                          backgroudColor: Colors.black,
-                          foregroudColor: Colors.grey,
+                          backgroudColor: isDarkTheme
+                              ? const Color(0xff555561)
+                              : const Color(0xff272727),
+                          foregroudColor: isDarkTheme
+                              ? const Color(0xff474753)
+                              : const Color(0x004a4a4a),
                         ),
                         CustomIconText(
                           onTap: () {
@@ -169,44 +172,53 @@ class ClinicalParentPage extends ConsumerWidget {
                     ),
                     const SizedBox(height: 30.0),
                     // the content below the icons
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Center(
-                          child: Text(
-                            'My Priorities',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 28,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20.0),
-                        const Text(
-                          'Prenatal Welness Care',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        PrenatalWelnessCare(
-                          title: 'Breast Examination',
-                          onTap: () {},
-                        ),
-                        PrenatalWelnessCare(
-                          title: 'Pelvic Examination',
-                          onTap: () {},
-                        ),
-                        PrenatalWelnessCare(
-                          title: 'Sample Examination',
-                          onTap: () {},
-                        ),
-                        PrenatalWelnessCare(
-                          title: 'Sample Examination',
-                          onTap: () {},
-                        ),
-                      ],
+                    const Center(
+                      child: Text(
+                        'My Priorites',
+                        style: TextStyle(
+                            fontSize: 28, fontWeight: FontWeight.w600),
+                      ),
                     ),
+                    const SizedBox(height: 20),
+                    const ClinicalCards(),
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     const Center(
+                    //       child: Text(
+                    //         'My Priorities',
+                    //         style: TextStyle(
+                    //           fontWeight: FontWeight.bold,
+                    //           fontSize: 28,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(height: 20.0),
+                    //     const Text(
+                    //       'Prenatal Welness Care',
+                    //       style: TextStyle(
+                    //         fontWeight: FontWeight.w600,
+                    //       ),
+                    //     ),
+                    //     const SizedBox(height: 10),
+                    //     PrenatalWelnessCare(
+                    //       title: 'Breast Examination',
+                    //       onTap: () {},
+                    //     ),
+                    //     PrenatalWelnessCare(
+                    //       title: 'Pelvic Examination',
+                    //       onTap: () {},
+                    //     ),
+                    //     PrenatalWelnessCare(
+                    //       title: 'Sample Examination',
+                    //       onTap: () {},
+                    //     ),
+                    //     PrenatalWelnessCare(
+                    //       title: 'Sample Examination',
+                    //       onTap: () {},
+                    //     ),
+                    //   ],
+                    // ),
                     const SizedBox(height: 20.0),
                   ],
                 ),
