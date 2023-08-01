@@ -12,6 +12,8 @@ import 'package:mliq/routes/programs_tab/programs_tab_route.dart';
 import 'package:mliq/routes/referral_tab/referral_tab_route.dart';
 import 'package:mliq/theme/theme_page.dart';
 
+import '../pages/selectdoctor.dart';
+
 class AppRouteConfig {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -58,6 +60,11 @@ class AppRouteConfig {
         name: AppRouteNames.selectPracticeDoctor,
         path: '/selectPracticeDoctor', // Selecta Practice and Doctor Pages
         builder: ((context, state) => Container()),
+      ),
+      GoRoute(
+        name: AppRouteNames.selectdoctor,
+        path: '/selectdoctor', // Select a Doctor Pages
+        builder: ((context, state) => const Selectdoctor()),
       ),
       GoRoute(
         name: AppRouteNames.onboarding,

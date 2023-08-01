@@ -7,6 +7,7 @@ class AppRouteNames {
   static const payment = 'payment';
   static const selectPracticeDoctor = 'selectPracticeDoctor';
   static const onboarding = 'onboarding';
+  static const selectdoctor = 'selectdoctor';
 
   // For Demo Pages only
   static const themePage = 'theme-page';
