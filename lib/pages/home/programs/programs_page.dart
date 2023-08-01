@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'programs_tabs.dart';
@@ -38,6 +39,14 @@ class ProgramsPage extends ConsumerWidget {
                     elevation: 0.0,
                     toolbarHeight: 120,
                     centerTitle: true,
+                    leading: IconButton(
+                      icon: Icon(
+                        CupertinoIcons.left_chevron,
+                        color: Theme.of(context).iconTheme.color,
+                        size: 25,
+                      ),
+                      onPressed: () {},
+                    ),
                     title: Image.asset(isDarkTheme
                         ? 'assets/logo/logo-dark.png'
                         : 'assets/logo/logo.png'),
