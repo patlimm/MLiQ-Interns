@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/pages/auth/login_page.dart';
+import 'package:mliq/pages/onboarding/onboarding_page.dart';
 import 'package:mliq/pages/parent_page.dart';
 import 'package:mliq/pages/splash_screen/splash_screen.dart';
 import 'package:mliq/routes/account_tab/account_tab_route.dart';
@@ -62,7 +63,7 @@ class AppRouteConfig {
       GoRoute(
         name: AppRouteNames.onboarding,
         path: '/onboarding', // Onboarding Page
-        builder: ((context, state) => Container()),
+        builder: ((context, state) => const OnboardingPage()),
       ),
 
       // Theme Page only
