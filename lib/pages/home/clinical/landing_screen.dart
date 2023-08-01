@@ -174,7 +174,7 @@ class ClinicalParentPage extends ConsumerWidget {
                     // the content below the icons
                     const Center(
                       child: Text(
-                        'My Priorites',
+                        'My Priorities',
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.w600),
                       ),
