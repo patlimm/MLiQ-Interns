@@ -30,87 +30,85 @@ class ProgramsPage extends ConsumerWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                children: [
-                  AppBar(
-                    backgroundColor: Colors.transparent,
-                    elevation: 0.0,
-                    toolbarHeight: 120,
-                    centerTitle: true,
-                    leading: IconButton(
-                      icon: Icon(
-                        CupertinoIcons.left_chevron,
-                        color: Theme.of(context).iconTheme.color,
-                        size: 25,
+            Column(
+              children: [
+                AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
+                  toolbarHeight: 120,
+                  centerTitle: true,
+                  leading: IconButton(
+                    icon: Icon(
+                      CupertinoIcons.left_chevron,
+                      color: Theme.of(context).iconTheme.color,
+                      size: 25,
+                    ),
+                    onPressed: () {},
+                  ),
+                  title: Image.asset(isDarkTheme
+                      ? 'assets/logo/logo-dark.png'
+                      : 'assets/logo/logo.png'),
+                  actions: <Widget>[
+                    IconButton(
+                      padding: const EdgeInsets.only(right: 30),
+                      icon: Image.asset(
+                        isDarkTheme
+                            ? 'assets/message_icon/group9-dark.png'
+                            : 'assets/message_icon/group9.png',
+                        height: 24,
+                        width: 24,
                       ),
                       onPressed: () {},
                     ),
-                    title: Image.asset(isDarkTheme
-                        ? 'assets/logo/logo-dark.png'
-                        : 'assets/logo/logo.png'),
-                    actions: <Widget>[
-                      IconButton(
-                        icon: Image.asset(
-                          isDarkTheme
-                              ? 'assets/message_icon/group9-dark.png'
-                              : 'assets/message_icon/group9.png',
-                          height: 24,
-                          width: 24,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                  // Programs
-                  Text(
-                    "Programs",
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Poppins",
-                        fontSize: 28.0),
+                  ],
+                ),
+                // Programs
+                Text(
+                  "Programs",
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Poppins",
+                      fontSize: 28.0),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: 336,
+                  height: 34,
+                  child: RichText(
                     textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    width: 336,
-                    height: 34,
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              wordSpacing: 1.5,
-                              height: 1.4,
-                              fontFamily: "Poppins",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12.0,
-                            ),
-                        children: [
-                          const TextSpan(
-                            text:
-                                "it is important to know WHY, HOW, and WHAT to do in\n"
-                                "this section. Let`s start at the beginning,",
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            wordSpacing: 1.5,
+                            height: 1.4,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12.0,
                           ),
-                          TextSpan(
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                            text: " click here",
+                      children: [
+                        const TextSpan(
+                          text:
+                              "it is important to know WHY, HOW, and WHAT to do in\n"
+                              "this section. Let`s start at the beginning,",
+                        ),
+                        TextSpan(
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
-                          const TextSpan(text: "."),
-                        ],
-                      ),
+                          text: " click here",
+                        ),
+                        const TextSpan(text: "."),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  const Expanded(
-                    child: ProgramsTabBar(),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 30),
+                const Expanded(
+                  child: ProgramsTabBar(),
+                ),
+              ],
             ),
           ],
         ),

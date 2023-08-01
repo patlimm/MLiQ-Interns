@@ -16,112 +16,125 @@ class ProgramsTabBar extends ConsumerWidget {
       length: 2,
       child: Column(
         children: <Widget>[
-          TabBar(
-            splashFactory: NoSplash.splashFactory,
-            overlayColor: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-                return states.contains(MaterialState.focused)
-                    ? null
-                    : Colors.transparent;
-              },
-            ),
-            unselectedLabelColor: Theme.of(context).disabledColor,
-            labelColor: Theme.of(context).textTheme.bodyLarge?.color,
-            labelStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-            unselectedLabelStyle: const TextStyle(
-              fontSize: 14,
-            ),
-            indicator: UnderlineTabIndicator(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                width: 2,
-                color: Colors.blue,
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Theme.of(context)
+                      .dividerColor, //Customize the width of the line here
+                ),
               ),
             ),
-            tabs: const <Widget>[
-              Tab(
-                text: 'My Specialty Program',
+            child: TabBar(
+              splashFactory: NoSplash.splashFactory,
+              overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                (Set<MaterialState> states) {
+                  return states.contains(MaterialState.focused)
+                      ? null
+                      : Colors.transparent;
+                },
               ),
-              Tab(
-                text: 'History',
+              unselectedLabelColor: Theme.of(context).disabledColor,
+              labelColor: Theme.of(context).textTheme.bodyLarge?.color,
+              labelStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
               ),
-            ],
+              unselectedLabelStyle: const TextStyle(
+                fontSize: 14,
+              ),
+              indicator: UnderlineTabIndicator(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  width: 2,
+                  color: Colors.blue,
+                ),
+              ),
+              tabs: const <Widget>[
+                Tab(
+                  text: 'My Specialty Program',
+                ),
+                Tab(
+                  text: 'History',
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 30,
           ),
           Expanded(
-            child: TabBarView(
-              children: [
-                // TabBarView for 'My Specialty Program' tab
-                // Replace this with the content for 'My Specialty Program' tab
-                // ListView.builder(
-                //   itemCount: historyList.length,
-                //   itemBuilder: (context, index) {}
-                Container(
-                  color: Colors.blue,
-                  child: const Center(
-                    child: Text('My Specialty Program Content'),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: TabBarView(
+                children: [
+                  // TabBarView for 'My Specialty Program' tab
+                  // Replace this with the content for 'My Specialty Program' tab
+                  // ListView.builder(
+                  //   itemCount: historyList.length,
+                  //   itemBuilder: (context, index) {}
+                  Container(
+                    color: Colors.blue,
+                    child: const Center(
+                      child: Text('My Specialty Program Content'),
+                    ),
                   ),
-                ),
-                // TabBarView for 'History' tab
-                // Use ref.watch to get the historyList
-                ListView.builder(
-                  itemCount: historyList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 5),
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: isDarkTheme
-                              ? Theme.of(context).cardColor
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(9),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color(0x1a000000),
-                              blurRadius: 15,
-                              offset: Offset(0, 0),
-                              spreadRadius: 0,
-                            ),
-                          ],
-                        ),
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  historyList[index],
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "Poppins",
-                                    color: isDarkTheme
-                                        ? Colors.grey
-                                        : Colors.black,
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                icon: const Icon(
-                                  CupertinoIcons.right_chevron,
-                                  size: 15,
-                                ),
-                                onPressed: () {},
+                  // TabBarView for 'History' tab
+                  // Use ref.watch to get the historyList
+                  ListView.builder(
+                    itemCount: historyList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 5),
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: isDarkTheme
+                                ? Theme.of(context).cardColor
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(9),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x1a000000),
+                                blurRadius: 15,
+                                offset: Offset(0, 0),
+                                spreadRadius: 0,
                               ),
                             ],
                           ),
+                          child: ListTile(
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    historyList[index],
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "Poppins",
+                                      color: isDarkTheme
+                                          ? Colors.grey
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: const Icon(
+                                    CupertinoIcons.right_chevron,
+                                    size: 15,
+                                  ),
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],
