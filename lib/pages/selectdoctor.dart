@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mliq/theme/app_colors.dart';
 
-class Selectdoctor extends StatelessWidget {
+class Selectdoctor extends StatelessWidget with AppColorsMixin {
   const Selectdoctor({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       //Appbar
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        // backgroundColor: Colors.white,
+        // foregroundColor: Colors.black,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {},
@@ -27,7 +31,11 @@ class Selectdoctor extends StatelessWidget {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.only(
+          left: 30,
+          right: 30,
+          top: 56,
+        ),
         children: [
           Container(
             padding: const EdgeInsets.all(16.0),
@@ -46,7 +54,7 @@ class Selectdoctor extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             margin: const EdgeInsets.all(6.0),
             decoration: BoxDecoration(
-              color: Colors.white,
+              // color: Colors.white,
               borderRadius: BorderRadius.circular(5),
               boxShadow: [
                 BoxShadow(
@@ -68,7 +76,7 @@ class Selectdoctor extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             margin: const EdgeInsets.all(6.0),
             decoration: BoxDecoration(
-                color: Colors.white,
+                // color: Colors.white,
                 borderRadius: BorderRadius.circular(5),
                 boxShadow: [
                   BoxShadow(
