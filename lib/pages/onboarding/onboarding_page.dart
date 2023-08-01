@@ -229,7 +229,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                       ),
                     ),
                     Text(
-                      '$index of 6',
+                      '$pageNumber of 6',
                       style:
                           const TextStyle(fontSize: 10.0, color: Colors.white),
                     ),
