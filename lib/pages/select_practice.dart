@@ -26,9 +26,11 @@ class SelectPractice extends ConsumerWidget {
           height: isDarkTheme ? 40 : 47,),
         leading: IconButton(
           onPressed: () {
+            ref.read(selectedPracticeIndexProvider.notifier).setSelectedIndex(-1);
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const LoginPage()),
+              
             );
           },
           icon:  Icon(
@@ -39,6 +41,7 @@ class SelectPractice extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () {
+              ref.read(selectedPracticeIndexProvider.notifier).setSelectedIndex(-1);
               Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -93,6 +96,7 @@ class SelectPractice extends ConsumerWidget {
                 onTap: () {
                   ref.read(selectedPracticeIndexProvider.notifier)
                       .setSelectedIndex(index - 1);
+                  
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
