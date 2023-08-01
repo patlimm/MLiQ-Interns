@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               child: const Text('Theme Page'),
-              onPressed: () {
+              onPressed: () { 
                 context.pushNamed(AppRouteNames.themePage);
               },
             ),

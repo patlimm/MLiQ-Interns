@@ -37,20 +37,19 @@ class AppThemeData with AppColorsMixin {
     return ThemeData(
       brightness: Brightness.light,
       fontFamily: 'Poppins',
-      // textTheme: sampleTextTheme,
-      primarySwatch: primarySwatch,
       disabledColor: disabledColor,
-      backgroundColor: backgroundColor,
       focusColor: secondaryColor,
-      errorColor: errorColor,
-      colorScheme: ColorScheme.fromSwatch().copyWith(
-        primary: primaryColor,
-        primaryContainer: primaryVariant,
-        secondary: secondaryColor,
-        secondaryContainer: secondaryVariant,
-        background: backgroundColor,
-        error: errorColor,
-      ),
+      colorScheme: ColorScheme.fromSwatch()
+          .copyWith(
+            primary: primaryColor,
+            primaryContainer: primaryVariant,
+            secondary: secondaryColor,
+            secondaryContainer: secondaryVariant,
+            background: backgroundColor,
+            error: errorColor,
+          )
+          .copyWith(background: backgroundColor)
+          .copyWith(error: errorColor),
     );
   }
 
@@ -62,7 +61,6 @@ class AppThemeData with AppColorsMixin {
     final secondaryVariant = primarySwatch.shade500;
 
     const disabledColor = Color(0xFFBABFC4);
-    const backgroundColor = Color(0xFF121212);
     const errorColor = Color(0xFFCF6679);
 
     // TextTheme sampleTextTheme = ThemeData.light().textTheme.copyWith(
@@ -76,9 +74,6 @@ class AppThemeData with AppColorsMixin {
     return ThemeData(
       brightness: Brightness.dark,
       fontFamily: 'Poppins',
-      // textTheme: sampleTextTheme,
-      primarySwatch: darkSwatch,
-      errorColor: errorColor,
       disabledColor: disabledColor,
       colorScheme: ColorScheme.dark(
         brightness: Brightness.dark,
@@ -86,9 +81,16 @@ class AppThemeData with AppColorsMixin {
         primaryContainer: primaryVariant,
         secondary: secondaryColor,
         secondaryContainer: secondaryVariant,
-        background: backgroundColor,
+        background: appBackgroundColor,
         error: errorColor,
       ),
+      scaffoldBackgroundColor:
+          appBackgroundColor, // Use the custom app background color for the scaffold
+      appBarTheme: AppBarTheme(
+        backgroundColor:
+            navBarColor, // Use the custom nav bar color for app bar
+      ),
+      cardColor: cardColor, // Use the custom card color
     );
   }
 }
