@@ -1,19 +1,10 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
-class SamplePage extends StatelessWidget {
-  const SamplePage({super.key});
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sample Page'),
-      ),
-      body: Center(
-        child: Text('Sample Page'),
-      ),
-    );
+    return const Placeholder();
   }
 }

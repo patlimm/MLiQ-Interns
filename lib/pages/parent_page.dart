@@ -33,7 +33,7 @@ class _ParentPageState extends State<ParentPage> {
       Center(child: Text('Clinical')),
       Center(child: Text('NeuroScore')),
       ProgramsPage(),
-      // Center(child: Text('Programs')),
+      Center(child: Text('Programs')),
       Center(child: Text('Referral')),
 
       //

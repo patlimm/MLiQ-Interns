@@ -44,33 +44,35 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Scaffold(
       body: Material(
-        child: Container(
+        color: Color(0xFF3A2C2C),
+        child: SizedBox(
           height: height,
           width: width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.blue,
-                Colors.blueGrey,
-              ],
-              begin: const FractionalOffset(1.0, 1.0),
-              end: const FractionalOffset(0.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp,
-            ),
-          ),
-          child: Align(
-            alignment: Alignment.center,
-            child: AnimatedContainer(
-              height: _logoH,
-              duration: Duration(seconds: 2),
-              child: Icon(
-                Icons.star,
+          child: Stack(
+            children: [
+              // Wave Top
+              PositionedDirectional(
+                top: 0,
+                end: 0,
+                child: Image.asset('assets/Splash_assets/wave_top/wave.png'),
               ),
-              // child: Image(
-              //   image: AssetImage('assets/logo/text-logo-white.png'),
-              // ),
-            ),
+              // Wave Bottom
+              PositionedDirectional(
+                bottom: 0,
+                start: 0,
+                child: Image.asset(
+                    'assets/Splash_assets/wave_bottom/waveCopy.png'),
+              ),
+              // Logo Center
+              Center(
+                child: AnimatedContainer(
+                  height: _logoH,
+                  duration: Duration(seconds: 2),
+                  child: Image.asset(
+                      'assets/Splash_assets/logo/text-logo-white.png'),
+                ),
+              ),
+            ],
           ),
         ),
       ),

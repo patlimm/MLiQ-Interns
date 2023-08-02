@@ -75,6 +75,12 @@ flutter:
       - assets/message_icon/group9.png
       - assets/message_icon/group9-dark.png
 
+  # Splash assets
+      - assets/Splash_assets/background/bg.png
+      - assets/Splash_assets/wave_top/wave.png
+      - assets/Splash_assets/wave_bottom/waveCopy.png
+      - assets/Splash_assets/logo/text-logo-white.png
+
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
