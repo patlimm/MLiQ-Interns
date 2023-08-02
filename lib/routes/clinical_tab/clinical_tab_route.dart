@@ -12,37 +12,37 @@ import 'package:mliq/routes/app_route_names.dart';
 final List<GoRoute> clinicalRoutes = [
   GoRoute(
     name: AppRouteNames.clinical,
-    path: '${AppRouteNames.clinical}/sample-page',
+    path: '${AppRouteNames.clinical}/parent-page',
     builder: ((context, state) => const ClinicalParentPage()),
   ),
   GoRoute(
     name: AppRouteNames.vitalHealth,
-    path: '${AppRouteNames.vitalHealth}/sample-page',
+    path: '${AppRouteNames.clinical}/vital-health',
     builder: ((context, state) => const VitalHealthScreen()),
   ),
   GoRoute(
     name: AppRouteNames.flourish,
-    path: '${AppRouteNames.flourish}/sample-page',
+    path: '${AppRouteNames.clinical}/flourish',
     builder: ((context, state) => const FlourishScreen()),
   ),
   GoRoute(
     name: AppRouteNames.brainHealth,
-    path: '${AppRouteNames.brainHealth}/sample-page',
+    path: '${AppRouteNames.clinical}/brain-health',
     builder: ((context, state) => const BrainHealth()),
   ),
   GoRoute(
     name: AppRouteNames.nourish,
-    path: '${AppRouteNames.nourish}/sample-page',
+    path: '${AppRouteNames.clinical}/nourish',
     builder: ((context, state) => const NourishScreen()),
   ),
   GoRoute(
     name: AppRouteNames.movement,
-    path: '${AppRouteNames.movement}/sample-page',
+    path: '${AppRouteNames.clinical}/movement',
     builder: ((context, state) => const MovementScreen()),
   ),
   GoRoute(
     name: AppRouteNames.programs,
-    path: '${AppRouteNames.programs}/sample-page',
+    path: '${AppRouteNames.clinical}/programs',
     builder: ((context, state) => const ProgramsClinicalScreen()),
   ),
   GoRoute(

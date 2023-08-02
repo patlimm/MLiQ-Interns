@@ -65,6 +65,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/clinical/
+    - lib/assets/clinical/vital_health/
+    - lib/assets/clinical/flourish/
+    - lib/assets/clinical/brain_health/
+    - lib/assets/clinical/nourish/
+    - lib/assets/clinical/movement/
     - lib/assets/clinical/icons/
   #   - images/a_dot_ham.jpeg
 
