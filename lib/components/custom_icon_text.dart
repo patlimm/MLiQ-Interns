@@ -7,10 +7,11 @@ class CustomIconText extends StatelessWidget {
   final String? subtitle;
   final Color backgroudColor;
   final Color foregroudColor;
-  final IconData? icon;
+  final String? icon;
   final Color? iconColor;
   final Alignment? iconAlignment;
   final String? imageUrl;
+  final GestureTapCallback? onTap;
 
   const CustomIconText({
     super.key,
@@ -22,6 +23,7 @@ class CustomIconText extends StatelessWidget {
     this.iconColor,
     this.iconAlignment,
     this.imageUrl,
+    this.onTap,
   });
 
   final double _height = 150;
@@ -29,79 +31,102 @@ class CustomIconText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(28.0),
-      child: Container(
-        color: backgroudColor,
-        height: _height,
-        width: _width,
-        child: Stack(
-          children: [
-            _foregroundCircle(),
-            Align(
-              alignment: iconAlignment ?? Alignment.topRight,
-              child: _getIcon(icon),
-            ),
-            Positioned(
-              top: 90,
-              child: Container(
-                width: _width,
-                padding: EdgeInsets.only(left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title ?? '',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Row(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(28),
+        boxShadow: const [
+          BoxShadow(
+              color: Color(0x820f363d),
+              offset: Offset(0, 2),
+              blurRadius: 27,
+              spreadRadius: 0)
+        ],
+      ),
+      child: GestureDetector(
+        onTap: onTap,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(28.0),
+          child: Container(
+            color: backgroudColor,
+            height: _height,
+            width: _width,
+            child: Stack(
+              children: [
+                _foregroundCircle(),
+                Align(
+                  alignment: iconAlignment ?? Alignment.topRight,
+                  child: _getIcon(icon),
+                ),
+                Positioned(
+                  top: 90,
+                  child: Container(
+                    width: _width,
+                    padding: EdgeInsets.only(left: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          subtitle ?? '',
+                          title ?? '',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(width: 6),
-                        (subtitle != null || subtitle == '')
-                            ? Icon(
-                                Icons.arrow_forward_outlined,
-                                size: 12,
+                        SizedBox(height: 2),
+                        Row(
+                          children: [
+                            Text(
+                              subtitle ?? '',
+                              style: TextStyle(
+                                fontSize: 12,
                                 color: Colors.white,
-                              )
-                            : SizedBox()
+                              ),
+                            ),
+                            SizedBox(width: 6),
+                            (subtitle != null || subtitle == '')
+                                ? Icon(
+                                    Icons.arrow_forward_outlined,
+                                    size: 12,
+                                    color: Colors.white,
+                                  )
+                                : SizedBox()
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _getIcon(IconData? iconData) {
+  Widget _getIcon(String? iconData) {
     if (iconData == null) return SizedBox();
 
-    final iconSize = _height * .55;
+    final iconSize = _height * .45;
 
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      height: iconSize,
-      width: iconSize,
-      child: Center(
-        child: Icon(
-          iconData,
-          size: iconSize,
-          color: iconColor,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        height: iconSize,
+        width: iconSize,
+        child: Center(
+          // child: Icon(
+          //   iconData,
+          //   size: iconSize,
+          //   color: iconColor,
+          // ),
+          child: Image.asset(
+            iconData,
+            height: iconSize,
+            width: iconSize,
+          ),
         ),
       ),
     );

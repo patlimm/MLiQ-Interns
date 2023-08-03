@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mliq/pages/home/account/account_page.dart';
+import 'package:mliq/pages/home/clinical/landing_screen.dart';
 
 class ParentPage extends StatefulWidget {
   const ParentPage({super.key});
@@ -29,7 +30,7 @@ class _ParentPageState extends State<ParentPage> {
     // This is the only part if the code you will use.
     // Put your Screens here accordingly -Wrn
     _screens = <Widget>[
-      Center(child: Text('Clinical')),
+      ClinicalParentPage(),
       Center(child: Text('NeuroScore')),
       Center(child: Text('Programs')),
       Center(child: Text('Referral')),
