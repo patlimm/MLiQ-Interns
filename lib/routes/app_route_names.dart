@@ -16,6 +16,13 @@ class AppRouteNames {
   static const nourish = 'nourish';
   static const movement = 'movement';
   static const programsClinical = 'programs-clinical';
+  //for clinical assessment
+  static const vitalHealthAssessment = 'vital-health-assessment';
+  static const nourishAssessment = 'nourish-assessment';
+  static const movementAssessment = 'movement-assessment';
+  static const flourishAssessment = 'flourish-assessment';
+  static const brainHealthAssessment = 'brain-health-assessment';
+
 
   // For Demo Pages only
   static const themePage = 'theme-page';

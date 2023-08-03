@@ -1,4 +1,9 @@
 import 'package:go_router/go_router.dart';
+import 'package:mliq/pages/home/clinical/assessment/brain_health_assessment.dart';
+import 'package:mliq/pages/home/clinical/assessment/flourish_assessment.dart';
+import 'package:mliq/pages/home/clinical/assessment/movement_assessment.dart';
+import 'package:mliq/pages/home/clinical/assessment/nourish_assessment.dart';
+import 'package:mliq/pages/home/clinical/assessment/vital_health_assessment.dart';
 import 'package:mliq/pages/home/clinical/brain_health.dart';
 import 'package:mliq/pages/home/clinical/flourish.dart';
 import 'package:mliq/pages/home/clinical/landing_screen.dart';
@@ -49,5 +54,32 @@ final List<GoRoute> clinicalRoutes = [
     name: AppRouteNames.messages,
     path: '${AppRouteNames.messages}/sample-page',
     builder: ((context, state) => const Messages()),
+  ),
+
+  //clinical assessment
+  GoRoute(
+    name: AppRouteNames.vitalHealthAssessment,
+    path: '${AppRouteNames.clinical}/vital-health-assessment',
+    builder: ((context, state) => const VitalHealthAssessment()),
+  ),
+  GoRoute(
+    name: AppRouteNames.nourishAssessment,
+    path: '${AppRouteNames.clinical}/nourish-assessment',
+    builder: ((context, state) => const NourishAssessment()),
+  ),
+  GoRoute(
+    name: AppRouteNames.movementAssessment,
+    path: '${AppRouteNames.clinical}/movement-assessment',
+    builder: ((context, state) => const MovementAssessment()),
+  ),
+  GoRoute(
+    name: AppRouteNames.flourishAssessment,
+    path: '${AppRouteNames.clinical}/flourish-assessment',
+    builder: ((context, state) => const FlourishAssessment()),
+  ),
+  GoRoute(
+    name: AppRouteNames.brainHealthAssessment,
+    path: '${AppRouteNames.clinical}/brain-health-assessment',
+    builder: ((context, state) => const BrainHealthAssessment()),
   ),
 ];
