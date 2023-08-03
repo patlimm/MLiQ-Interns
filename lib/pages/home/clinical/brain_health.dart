@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mliq/components/clinical_components/introduction_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mliq/pages/home/clinical/clinical_components/introduction_screen.dart';
 import 'package:mliq/providers/service_provider.dart';
+import 'package:mliq/routes/app_route_names.dart';
 
 class BrainHealth extends ConsumerWidget {
   const BrainHealth({super.key});
@@ -23,12 +25,16 @@ class BrainHealth extends ConsumerWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: const Center(
+        child: Center(
           child: IntroductionScreen(
-              image: 'lib/assets/clinical/brain_health/brain_health.png',
-              title: 'Brain Health',
-              subtitle:
-                  'It is important to know WHY, HOW, and WHAT to do in this section. Let’s start at the beginning, click here.'),
+            image: 'lib/assets/clinical/brain_health/brain_health.png',
+            title: 'Brain Health',
+            subtitle:
+                'It is important to know WHY, HOW, and WHAT to do in this section. Let’s start at the beginning, click here.',
+            onPressed: () {
+              context.pushNamed(AppRouteNames.brainHealthAssessment);
+            },
+          ),
         ),
       ),
     );

@@ -24,6 +24,14 @@ final List<GoRoute> clinicalRoutes = [
     name: AppRouteNames.vitalHealth,
     path: '${AppRouteNames.clinical}/vital-health',
     builder: ((context, state) => const VitalHealthScreen()),
+    //testing this
+    routes: [
+      GoRoute(
+        name: AppRouteNames.vitalHealthAssessment,
+        path: '${AppRouteNames.clinical}/vital-health/vital-health-assessment',
+        builder: ((context, state) => const VitalHealthAssessment()),
+      ),
+    ],
   ),
   GoRoute(
     name: AppRouteNames.flourish,
@@ -56,12 +64,13 @@ final List<GoRoute> clinicalRoutes = [
     builder: ((context, state) => const Messages()),
   ),
 
-  //clinical assessment
-  GoRoute(
-    name: AppRouteNames.vitalHealthAssessment,
-    path: '${AppRouteNames.clinical}/vital-health-assessment',
-    builder: ((context, state) => const VitalHealthAssessment()),
-  ),
+  //clinical assessment routes
+
+  // GoRoute(
+  //   name: AppRouteNames.vitalHealthAssessment,
+  //   path: '${AppRouteNames.clinical}/vital-health/vital-health-assessment',
+  //   builder: ((context, state) => const VitalHealthAssessment()),
+  // ),
   GoRoute(
     name: AppRouteNames.nourishAssessment,
     path: '${AppRouteNames.clinical}/nourish-assessment',
@@ -74,7 +83,7 @@ final List<GoRoute> clinicalRoutes = [
   ),
   GoRoute(
     name: AppRouteNames.flourishAssessment,
-    path: '${AppRouteNames.clinical}/flourish-assessment',
+    path: '${AppRouteNames.clinical}/assessment/flourish-assessment',
     builder: ((context, state) => const FlourishAssessment()),
   ),
   GoRoute(

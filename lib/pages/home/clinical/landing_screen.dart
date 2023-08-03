@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mliq/pages/home/clinical/clinical_cards.dart';
+import 'package:mliq/pages/home/clinical/clinical_components/clinical_cards.dart';
 import 'package:mliq/routes/app_route_names.dart';
 
-import 'navigating_icons.dart';
+import 'clinical_components/navigating_icons.dart';
 
 import '../../../providers/service_provider.dart';
 

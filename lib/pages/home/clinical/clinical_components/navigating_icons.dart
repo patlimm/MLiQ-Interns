@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/components/custom_icon_text.dart';
 
-import '../../../routes/app_route_names.dart';
+import '../../../../routes/app_route_names.dart';
 
 class NavigatingIcons extends StatelessWidget {
   const NavigatingIcons({

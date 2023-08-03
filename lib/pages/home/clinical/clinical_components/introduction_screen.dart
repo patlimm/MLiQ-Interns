@@ -4,11 +4,13 @@ class IntroductionScreen extends StatelessWidget {
   final String image;
   final String title;
   final String subtitle;
+  final Function onPressed;
   const IntroductionScreen(
       {super.key,
       required this.image,
       required this.title,
-      required this.subtitle});
+      required this.subtitle,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class IntroductionScreen extends StatelessWidget {
           // button
           ElevatedButton(
             onPressed: () {
-              // Add onPressed logic here
+              onPressed;
             },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
