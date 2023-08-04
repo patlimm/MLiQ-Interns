@@ -3,13 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mliq/routes/app_route_names.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mliq/providers/service_provider.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class SplashScreenState extends ConsumerState<SplashScreen> {
   double _logoH = 100;
 
   @override
@@ -39,12 +41,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkTheme = ref.watch(isDarkThemeProvider);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Material(
-        color: Color(0xFF3A2C2C),
+        color: isDarkTheme ? Color(0xFF3A2C2C) : Color(0xFF564848),
         child: SizedBox(
           height: height,
           width: width,
