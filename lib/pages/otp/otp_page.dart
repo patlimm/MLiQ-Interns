@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mliq/components/otp/custom_text_field.dart';
+import 'package:mliq/components/otp/resend_button.dart';
+import 'package:mliq/components/otp/submit_button.dart';
 import 'package:mliq/pages/auth/login_page.dart';
 import 'package:mliq/providers/service_provider.dart';
 import 'package:mliq/providers/otp/otp_providers.dart';
@@ -46,10 +48,24 @@ class OTP extends ConsumerWidget with AppColorsMixin {
     return future;
   }
 
+  submitHandler(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Verification Code"),
+          content: Text(code == inputFormatter()
+              ? 'Verification Successful'
+              : 'Code incorrect, please try again ${inputFormatter()}'),
+        );
+      },
+    );
+  }
+
   String inputFormatter() {
     String formattedInputs = "";
-    for (int index = 0; index < 6; index++) {
-      formattedInputs += userInput[index].text;
+    for (var controller in userInput) {
+      formattedInputs += controller.text;
     }
     return formattedInputs;
   }
@@ -59,11 +75,20 @@ class OTP extends ConsumerWidget with AppColorsMixin {
     bool isDarkTheme = ref.watch(isDarkThemeProvider);
     bool isSubmitEnabled = ref.watch(isSubmitEnabledProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // bool result;
+      if (isSubmitEnabled) {
+        ref.read(isDarkThemeProvider.notifier).state = false;
+      }
       if (await otpGenerator()) {
         for (int index = 0; index < 6; index++) {
           userInput[index].text = code[index];
         }
+        // ignore: use_build_context_synchronously
+        submitHandler(context);
       }
+      // try{
+
+      // }
     });
     return Scaffold(
       // appBar
@@ -128,175 +153,28 @@ class OTP extends ConsumerWidget with AppColorsMixin {
 
             // 6-digit Inputs
             const SizedBox(height: 22),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(
-                6,
-                (index) {
-                  return SizedBox(
-                    width: 50,
-                    child: TextField(
-                      controller: userInput[index],
-                      focusNode: inputNodes[index],
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      maxLength: 1,
-                      cursorColor: Colors.blue,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 15),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(width: 0),
-                          borderRadius: BorderRadius.all(Radius.circular(13)),
-                        ),
-                        focusColor: Colors.blue,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(Radius.circular(13)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blue, width: 2.0),
-                          borderRadius: BorderRadius.all(Radius.circular(13)),
-                        ),
-                        counterText: "",
-                        filled: true,
-                        hintText: "x",
-                      ),
-                      onChanged: (value) {
-                        if (value.isNotEmpty && index < 5) {
-                          FocusScope.of(context).nextFocus();
-                        } else if (value.isEmpty && index > 0) {
-                          FocusScope.of(context).previousFocus();
-                        }
-
-                        if (index < 6) {
-                          ref.read(isSubmitEnabledProvider.notifier).state =
-                              false;
-                        } else {
-                          ref.read(isSubmitEnabledProvider.notifier).state =
-                              true;
-                        }
-                      },
-                    ),
-                  );
-                },
-              ),
+            OtpTextField(
+              userInput: userInput,
+              inputNodes: inputNodes,
             ),
 
             // Submit Button
             const SizedBox(height: 26),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: ElevatedButton(
-                onPressed: () => {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text("Verification Code"),
-                        content: Text(code == inputFormatter()
-                            ? 'Verification Successful'
-                            : 'Code incorrect, please try again'),
-                      );
-                    },
-                  )
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: isSubmitEnabled
-                      ? Theme.of(context).disabledColor
-                      : Theme.of(context).colorScheme.primary,
-                  // ? Colors.amber[800]
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(20),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "Submit",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(
-                        Icons.chevron_right,
-                        size: 20,
-                      ),
-                    )
-                  ],
-                ),
-              ),
+            SubmitButton(
+              userInput: userInput,
+              callbackFunction: () {
+                submitHandler(context);
+              },
+              validationProvider: isSubmitEnabled,
             ),
 
             // Resend Button
             const SizedBox(height: 52),
-            TextButton(
-              onPressed: () {
-                try {
-                  otpGenerator();
-                } catch (e) {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const AlertDialog(
-                        title: Text("Error"),
-                        content: Text("Something went wrong, please try again"),
-                      );
-                    },
-                  );
-                } finally {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text("OTP has been resent"),
-                        content: Text("New OTP: $code"),
-                      );
-                    },
-                  );
-                  Future.delayed(
-                    const Duration(seconds: 5),
-                    () => {
-                      for (int index = 0; index < 6; index++)
-                        {userInput[index].text = code[index]}
-                    },
-                  );
-                }
-              },
-              child: Text(
-                "Resend OTP",
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: isDarkTheme
-                      ? Theme.of(context).colorScheme.primary
-                      : Colors.black,
-                ),
-              ),
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Switch(
-                  value: isDarkTheme,
-                  onChanged: (bool value) {
-                    debugPrint(value.toString());
-                    // Get the state value from the isDarkThemeProvider
-                    // using ref.read()
-                    // then change the value of the state accordingly -Wrn
-                    ref.read(isDarkThemeProvider.notifier).state = value;
-                  },
-                ),
-              ],
+            ResendButton(
+              callbackFunction: otpGenerator(),
+              userInput: userInput,
+              parentContext: context,
+              code: code,
             ),
           ],
         ),
