@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:mliq/providers/otp/otp_providers.dart";
 import "package:mliq/theme/app_colors.dart";
 
 class SubmitButton extends ConsumerWidget with AppColorsMixin {
@@ -17,7 +16,6 @@ class SubmitButton extends ConsumerWidget with AppColorsMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // bool isSubmitEnabled = ref.watch(isSubmitEnabledProvider);
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
