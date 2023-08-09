@@ -4,6 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mliq/providers/service_provider.dart';
 import 'package:mliq/routes/app_route_config.dart';
 import 'package:mliq/theme/app_theme_data.dart';
+import 'package:telephony/telephony.dart';
+
+backgrounMessageHandler(SmsMessage message) async {
+  debugPrint(message.body);
+}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

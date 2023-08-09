@@ -5,14 +5,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mliq/components/otp/custom_text_field.dart';
 import 'package:mliq/components/otp/resend_button.dart';
 import 'package:mliq/components/otp/submit_button.dart';
+import 'package:mliq/main.dart';
 import 'package:mliq/pages/auth/login_page.dart';
 import 'package:mliq/providers/service_provider.dart';
 import 'package:mliq/providers/otp/otp_providers.dart';
 import 'package:mliq/theme/app_colors.dart';
+import 'package:telephony/telephony.dart';
 
 // ignore: must_be_immutable
 class OTP extends ConsumerWidget with AppColorsMixin {
   OTP({super.key});
+
+  final Telephony telephony = Telephony.instance;
 
   List<TextEditingController> userInput =
       List.generate(6, (index) => TextEditingController());
@@ -70,25 +74,42 @@ class OTP extends ConsumerWidget with AppColorsMixin {
     return formattedInputs;
   }
 
+  void showOtp() {
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       title: const Text("Verification Code"),
+    //       content: Text('Your OTP is $code'),
+    //     );
+    //   },
+    // );
+    debugPrint("YOUR OTP IS $code");
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkTheme = ref.watch(isDarkThemeProvider);
     bool isSubmitEnabled = ref.watch(isSubmitEnabledProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // bool result;
       if (isSubmitEnabled) {
         ref.read(isDarkThemeProvider.notifier).state = false;
       }
       if (await otpGenerator()) {
-        for (int index = 0; index < 6; index++) {
-          userInput[index].text = code[index];
-        }
         // ignore: use_build_context_synchronously
-        submitHandler(context);
+        showOtp();
+        telephony.listenIncomingSms(
+          onNewMessage: (SmsMessage message) {
+            if (message.body == "Your OTP is $code") {
+              for (int index = 0; index < 6; index++) {
+                userInput[index].text = code[index];
+              }
+              submitHandler(context);
+            }
+          },
+          onBackgroundMessage: backgrounMessageHandler,
+        );
       }
-      // try{
-
-      // }
     });
     return Scaffold(
       // appBar
