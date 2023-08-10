@@ -13,7 +13,6 @@ class OnboardingPage extends ConsumerStatefulWidget {
 
 class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   late PageController _controller;
-  int pageNumber = 1;
 
   @override
   void initState() {
@@ -23,6 +22,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    double appBarheight = 56 + MediaQuery.of(context).viewPadding.top;
     bool isDarkTheme = ref.watch(isDarkThemeProvider);
 
     return Scaffold(
@@ -48,24 +48,22 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
       body: PageView.builder(
         itemCount: 6,
         controller: _controller,
-        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (content, index) {
           return Stack(
             children: [
               Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(
-                        'lib/assets/onboarding/screen$pageNumber/ebg@3x.png'),
+                    image: AssetImage(backgroundImages[index]),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Column(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 56),
-                    child: Column(
+                  Padding(
+                    padding: EdgeInsets.only(top: appBarheight),
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
@@ -165,10 +163,10 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                                   ),
                                   Expanded(
                                     child: ListView.builder(
-                                      padding:
-                                          const EdgeInsets.only(top: 20.00),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20.00),
                                       shrinkWrap: true,
-                                      itemCount: 5,
+                                      itemCount: 10,
                                       itemBuilder: (context, index) {
                                         return InkWell(
                                           onTap: () {
@@ -176,7 +174,6 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                                                 duration: const Duration(
                                                     milliseconds: 250),
                                                 curve: Curves.easeInExpo);
-                                            pageNumber++;
                                           },
                                           child: Container(
                                             margin: const EdgeInsets.all(5.0),
@@ -221,7 +218,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
                         child: LinearProgressIndicator(
-                          value: 0.166666667 * pageNumber,
+                          value: 0.166666667 * (index + 1),
                           valueColor: const AlwaysStoppedAnimation<Color>(
                               Colors.lightBlue),
                           backgroundColor: Colors.grey,
@@ -229,7 +226,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                       ),
                     ),
                     Text(
-                      '$pageNumber of 6',
+                      '$index of 6',
                       style:
                           const TextStyle(fontSize: 10.0, color: Colors.white),
                     ),
