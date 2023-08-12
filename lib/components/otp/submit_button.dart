@@ -7,12 +7,12 @@ class SubmitButton extends ConsumerWidget with AppColorsMixin {
     super.key,
     required this.userInput,
     required this.callbackFunction,
-    required this.validationProvider,
+    required this.inputsComplete,
   });
 
   final Function callbackFunction;
   final TextEditingController userInput;
-  final bool validationProvider;
+  final bool inputsComplete;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,26 +21,27 @@ class SubmitButton extends ConsumerWidget with AppColorsMixin {
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: ElevatedButton(
         onPressed: () {
-          if (validationProvider) {
+          if (inputsComplete) {
             callbackFunction();
           }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: validationProvider
+          // button's bg will change depending on the completedness of the input
+          backgroundColor: inputsComplete
               ? Theme.of(context).colorScheme.primary
               : Theme.of(context).disabledColor,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           alignment: Alignment.center,
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(15),
         ),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
               "Submit",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: EdgeInsets.all(6.0),

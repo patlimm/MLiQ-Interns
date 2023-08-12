@@ -15,14 +15,14 @@ class ResendButton extends ConsumerWidget with AppColorsMixin {
   });
 
   final BuildContext parentContext;
-  final Future callbackFunction;
+  final Function callbackFunction;
   final TextEditingController userInput;
   final String code;
   // final bool isDarkThemeListener;
 
   resendHandler(context, code) async {
     try {
-      callbackFunction;
+      callbackFunction();
     } catch (e) {
       showDialog(
         context: context,
@@ -33,24 +33,6 @@ class ResendButton extends ConsumerWidget with AppColorsMixin {
           );
         },
       );
-    } finally {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("OTP has been resent"),
-            content: Text("New OTP: $code"),
-          );
-        },
-      );
-      // Future.delayed(
-      //   const Duration(seconds: 5),
-      //   () => {
-      //     // for (int index = 0; index < 6; index++)
-      //     //   {userInput[index].text = code[index]}
-      //     userInput.text = code,
-      //   },
-      // );
     }
   }
 
@@ -59,7 +41,9 @@ class ResendButton extends ConsumerWidget with AppColorsMixin {
     bool isDarkTheme = ref.watch(isDarkThemeProvider);
     String code = ref.watch(otpCodeProvider);
     return TextButton(
-      onPressed: resendHandler(parentContext, code),
+      onPressed: () {
+        resendHandler(parentContext, code);
+      },
       child: Text(
         "Resend OTP",
         style: TextStyle(

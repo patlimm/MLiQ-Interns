@@ -20,39 +20,37 @@ class OTP extends ConsumerWidget with AppColorsMixin {
 
   TextEditingController userInput = TextEditingController();
   String code = "";
-  String phone = "+639123456789";
 
-  Future<bool> otpGenerator() {
-    code = String.fromCharCodes(
-      Iterable.generate(
-        6,
-        (_) => "0123456789".codeUnitAt(
-          Random().nextInt(10),
+  otpGenerator() {
+    if (code == "") {
+      code = String.fromCharCodes(
+        Iterable.generate(
+          6,
+          (_) => "0123456789".codeUnitAt(
+            Random().nextInt(10),
+          ),
         ),
-      ),
-    );
-
-    // put otp sender function here that returns true (if succeeds) and false (if failed)
-    return _sendSMS();
-  }
-
-  Future<bool> _sendSMS() async {
-    var future = Future.delayed(const Duration(seconds: 5), () => true);
-    return future;
+      );
+    }
   }
 
   submitHandler(context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Verification Code"),
-          content: Text(code == userInput.text
-              ? 'Verification Successful'
-              : 'Code incorrect, please try again'),
-        );
-      },
-    );
+    if (userInput.text == code) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text('Verification Code'),
+            content: Text('Code incorrect, please try again'),
+          );
+        },
+      );
+    }
   }
 
   void showOtp() {
@@ -63,16 +61,22 @@ class OTP extends ConsumerWidget with AppColorsMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkTheme = ref.watch(isDarkThemeProvider);
     bool isSubmitEnabled = ref.watch(isSubmitEnabledProvider);
+    String smsProviderNumber = ref.watch(smsServiceNumberProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (isSubmitEnabled) {
         ref.read(isDarkThemeProvider.notifier).state = false;
       }
-      if (await otpGenerator()) {
+      try {
+        otpGenerator();
+      } catch (e) {
+        debugPrint(e.toString());
+      } finally {
         // ignore: use_build_context_synchronously
         showOtp();
         telephony.listenIncomingSms(
-          onNewMessage: (SmsMessage message) {
-            if (message.body == "Your OTP is $code") {
+          onNewMessage: (SmsMessage message) async {
+            if (message.address == smsProviderNumber &&
+                message.body == "Your OTP is $code") {
               userInput.text = code;
               submitHandler(context);
             }
@@ -126,7 +130,7 @@ class OTP extends ConsumerWidget with AppColorsMixin {
                   Text(
                     "2-Step Verification",
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -134,7 +138,7 @@ class OTP extends ConsumerWidget with AppColorsMixin {
                     "A text message with a verification code was just sent to ****-****-*98",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -150,19 +154,28 @@ class OTP extends ConsumerWidget with AppColorsMixin {
             ),
 
             // Submit Button
-            const SizedBox(height: 26),
+            const SizedBox(height: 36),
             SubmitButton(
               userInput: userInput,
               callbackFunction: () {
                 submitHandler(context);
               },
-              validationProvider: isSubmitEnabled,
+              inputsComplete: isSubmitEnabled,
             ),
 
             // Resend Button
             const SizedBox(height: 52),
             ResendButton(
-              callbackFunction: otpGenerator(),
+              callbackFunction: () {
+                try {
+                  code = "";
+                  otpGenerator();
+                } catch (e) {
+                  debugPrint("<< ${e.toString()} >>");
+                } finally {
+                  showOtp();
+                }
+              },
               userInput: userInput,
               parentContext: context,
               code: code,
