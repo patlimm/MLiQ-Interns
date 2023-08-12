@@ -11,7 +11,7 @@ class SubmitButton extends ConsumerWidget with AppColorsMixin {
   });
 
   final Function callbackFunction;
-  final List<TextEditingController> userInput;
+  final TextEditingController userInput;
   final bool validationProvider;
 
   @override

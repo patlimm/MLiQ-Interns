@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mliq/components/otp/custom_text_field.dart';
+import 'package:mliq/components/otp/pinput_text_fields.dart';
 import 'package:mliq/components/otp/resend_button.dart';
 import 'package:mliq/components/otp/submit_button.dart';
 import 'package:mliq/main.dart';
@@ -18,9 +18,7 @@ class OTP extends ConsumerWidget with AppColorsMixin {
 
   final Telephony telephony = Telephony.instance;
 
-  List<TextEditingController> userInput =
-      List.generate(6, (index) => TextEditingController());
-  List<FocusNode> inputNodes = List.generate(6, (index) => FocusNode());
+  TextEditingController userInput = TextEditingController();
   String code = "";
   String phone = "+639123456789";
 
@@ -39,15 +37,6 @@ class OTP extends ConsumerWidget with AppColorsMixin {
   }
 
   Future<bool> _sendSMS() async {
-    // String result = await sendSMS(
-    //   message: code,
-    //   recipients: [
-    //     phone,
-    //   ],
-    // ).catchError((onError) {
-    //   print(onError);
-    // });
-    // print(result);
     var future = Future.delayed(const Duration(seconds: 5), () => true);
     return future;
   }
@@ -58,32 +47,15 @@ class OTP extends ConsumerWidget with AppColorsMixin {
       builder: (context) {
         return AlertDialog(
           title: const Text("Verification Code"),
-          content: Text(code == inputFormatter()
+          content: Text(code == userInput.text
               ? 'Verification Successful'
-              : 'Code incorrect, please try again ${inputFormatter()}'),
+              : 'Code incorrect, please try again'),
         );
       },
     );
   }
 
-  String inputFormatter() {
-    String formattedInputs = "";
-    for (var controller in userInput) {
-      formattedInputs += controller.text;
-    }
-    return formattedInputs;
-  }
-
   void showOtp() {
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return AlertDialog(
-    //       title: const Text("Verification Code"),
-    //       content: Text('Your OTP is $code'),
-    //     );
-    //   },
-    // );
     debugPrint("YOUR OTP IS $code");
   }
 
@@ -101,9 +73,7 @@ class OTP extends ConsumerWidget with AppColorsMixin {
         telephony.listenIncomingSms(
           onNewMessage: (SmsMessage message) {
             if (message.body == "Your OTP is $code") {
-              for (int index = 0; index < 6; index++) {
-                userInput[index].text = code[index];
-              }
+              userInput.text = code;
               submitHandler(context);
             }
           },
@@ -174,9 +144,9 @@ class OTP extends ConsumerWidget with AppColorsMixin {
 
             // 6-digit Inputs
             const SizedBox(height: 22),
-            OtpTextField(
+            PinputOtpTextFields(
               userInput: userInput,
-              inputNodes: inputNodes,
+              code: code,
             ),
 
             // Submit Button

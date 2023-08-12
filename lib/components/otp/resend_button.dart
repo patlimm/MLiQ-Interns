@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:mliq/providers/otp/otp_providers.dart";
 import "package:mliq/providers/service_provider.dart";
 import "package:mliq/theme/app_colors.dart";
 
@@ -15,13 +16,13 @@ class ResendButton extends ConsumerWidget with AppColorsMixin {
 
   final BuildContext parentContext;
   final Future callbackFunction;
-  final List<TextEditingController> userInput;
+  final TextEditingController userInput;
   final String code;
   // final bool isDarkThemeListener;
 
-  resendHandler(context) async {
+  resendHandler(context, code) async {
     try {
-      await callbackFunction;
+      callbackFunction;
     } catch (e) {
       showDialog(
         context: context,
@@ -42,23 +43,23 @@ class ResendButton extends ConsumerWidget with AppColorsMixin {
           );
         },
       );
-      Future.delayed(
-        const Duration(seconds: 5),
-        () => {
-          for (int index = 0; index < 6; index++)
-            {userInput[index].text = code[index]}
-        },
-      );
+      // Future.delayed(
+      //   const Duration(seconds: 5),
+      //   () => {
+      //     // for (int index = 0; index < 6; index++)
+      //     //   {userInput[index].text = code[index]}
+      //     userInput.text = code,
+      //   },
+      // );
     }
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkTheme = ref.watch(isDarkThemeProvider);
+    String code = ref.watch(otpCodeProvider);
     return TextButton(
-      onPressed: () {
-        resendHandler(parentContext);
-      },
+      onPressed: resendHandler(parentContext, code),
       child: Text(
         "Resend OTP",
         style: TextStyle(
