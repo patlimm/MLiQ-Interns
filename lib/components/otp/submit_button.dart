@@ -1,0 +1,58 @@
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:mliq/theme/app_colors.dart";
+
+class SubmitButton extends ConsumerWidget with AppColorsMixin {
+  SubmitButton({
+    super.key,
+    required this.userInput,
+    required this.callbackFunction,
+    required this.inputsComplete,
+  });
+
+  final Function callbackFunction;
+  final TextEditingController userInput;
+  final bool inputsComplete;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: ElevatedButton(
+        onPressed: () {
+          if (inputsComplete) {
+            callbackFunction();
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          // button's bg will change depending on the completedness of the input
+          backgroundColor: inputsComplete
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).disabledColor,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(15),
+        ),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Submit",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Padding(
+              padding: EdgeInsets.all(6.0),
+              child: Icon(
+                Icons.chevron_right,
+                size: 20,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

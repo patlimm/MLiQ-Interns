@@ -11,6 +11,7 @@ import 'package:mliq/routes/neuro_score_tab/neuro_score_route.dart';
 import 'package:mliq/routes/programs_tab/programs_tab_route.dart';
 import 'package:mliq/routes/referral_tab/referral_tab_route.dart';
 import 'package:mliq/theme/theme_page.dart';
+import 'package:mliq/pages/otp/otp_page.dart';
 
 class AppRouteConfig {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -47,7 +48,7 @@ class AppRouteConfig {
       GoRoute(
         name: AppRouteNames.otp,
         path: '/otp', // OTP Page
-        builder: ((context, state) => Container()),
+        builder: ((context, state) => OTP()),
       ),
       GoRoute(
         name: AppRouteNames.subscription,

@@ -71,8 +71,8 @@ class CustomTextField extends StatelessWidget with AppColorsMixin {
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               errorBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).errorColor, width: 1.0),
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.error, width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               enabledBorder: OutlineInputBorder(
