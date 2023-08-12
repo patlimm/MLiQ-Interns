@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mliq/pages/auth/login_page.dart';
-import 'package:mliq/pages/select_doctor.dart';
+import 'package:mliq/pages/select_practice.dart';
 import '../../../providers/service_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SelectPractice extends ConsumerWidget {
-  const SelectPractice({super.key});
+class SelectDoctor extends ConsumerWidget {
+  const SelectDoctor({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +29,7 @@ class SelectPractice extends ConsumerWidget {
             ref.read(selectedPracticeIndexProvider.notifier).setSelectedIndex(-1);
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
+              MaterialPageRoute(builder: (context) => const SelectPractice()),
               
             );
           },
@@ -43,10 +42,6 @@ class SelectPractice extends ConsumerWidget {
           TextButton(
             onPressed: () {
               ref.read(selectedPracticeIndexProvider.notifier).setSelectedIndex(-1);
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const SelectDoctor()),
-                );
             },
             child: Text(
               'Skip',
@@ -61,17 +56,19 @@ class SelectPractice extends ConsumerWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Container(
-        padding: const EdgeInsets.only(top: 70.0),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('lib/assets/images/wave1x.png'),
-            alignment: Alignment.topRight,
-          ),
-        ),
-        child: ListView.builder(
+      body: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(top: 70.0),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('lib/assets/images/wave1x.png'),
+                alignment: Alignment.topRight,
+              ),
+            ),
+            child: ListView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 15.0),
-          itemCount: practiceNames.length + 1,
+          itemCount: doctorNames.length + 1,
           itemBuilder: (context, index) {
             if (index == 0) {
               return Container(
@@ -79,7 +76,7 @@ class SelectPractice extends ConsumerWidget {
                 child: const Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Select a Practice',
+                    'Select a Doctor',
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -89,7 +86,7 @@ class SelectPractice extends ConsumerWidget {
               );
             } else {
 
-              final practiceName = practiceNames[index - 1];
+              final doctorName = doctorNames[index - 1];
 
               bool isSelected = index - 1 == selectedPracticeIndex;
 
@@ -97,7 +94,6 @@ class SelectPractice extends ConsumerWidget {
                 onTap: () {
                   ref.read(selectedPracticeIndexProvider.notifier)
                       .setSelectedIndex(index - 1);
-                  
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -124,7 +120,7 @@ class SelectPractice extends ConsumerWidget {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              practiceName,
+                              doctorName,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
@@ -146,8 +142,33 @@ class SelectPractice extends ConsumerWidget {
               );
             }
           },
-        ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 100),
+            child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: 320,
+                  height: 60,
+                  decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
+                    child: Text('Save Changes  >',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
+
   }
 }

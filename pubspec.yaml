@@ -67,6 +67,7 @@ flutter:
      - lib/assets/images/wave.png
      - lib/assets/images/wave2x.png
      - lib/assets/images/wave1x.png
+     - lib/assets/images/messagedark.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

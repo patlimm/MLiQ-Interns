@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mliq/pages/home/account/account_page.dart';
+import 'package:mliq/pages/home/referal/referral_page.dart';
 
 class ParentPage extends StatefulWidget {
   const ParentPage({super.key});
@@ -32,7 +33,7 @@ class _ParentPageState extends State<ParentPage> {
       Center(child: Text('Clinical')),
       Center(child: Text('NeuroScore')),
       Center(child: Text('Programs')),
-      Center(child: Text('Referral')),
+      ReferralPage(),
 
       //
       // routes from this screen are in

@@ -17,6 +17,12 @@ final List<String> practiceNames = [
   'Chiro One St. Peters',
 ];
 
+final List<String> doctorNames = [
+  'Robin Broff',
+  'Nicolas Chen',
+  
+];
+
 class SelectedPracticeIndexNotifier extends StateNotifier<int> {
   SelectedPracticeIndexNotifier() : super(-1);
 
@@ -29,3 +35,17 @@ final selectedPracticeIndexProvider =
     StateNotifierProvider<SelectedPracticeIndexNotifier, int>((ref) {
   return SelectedPracticeIndexNotifier();
 });
+
+
+final checkboxProvider = StateNotifierProvider<CheckboxNotifier, List<bool>>((ref) {
+  return CheckboxNotifier();
+});
+
+class CheckboxNotifier extends StateNotifier<List<bool>> {
+  CheckboxNotifier() : super([false, false, false, false]);
+
+  void toggleCheckbox(int index) {
+    state[index] = !state[index];
+    state = [...state]; // Trigger state change
+  }
+}
