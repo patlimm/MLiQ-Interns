@@ -35,6 +35,13 @@ class LoginPage extends StatelessWidget {
                 context.pushNamed(AppRouteNames.themePage);
               },
             ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: const Text('Select a Practice Page'),
+              onPressed: () {
+                context.pushNamed(AppRouteNames.selectPracticeDoctor);
+              },
+            ),
           ],
         ),
       ),

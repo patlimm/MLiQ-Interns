@@ -6,6 +6,7 @@ class AppRouteNames {
   static const subscription = 'subscription';
   static const payment = 'payment';
   static const selectPracticeDoctor = 'selectPracticeDoctor';
+  static const selectDoctor = 'selectDoctor';
   static const onboarding = 'onboarding';
 
   // For Demo Pages only
@@ -18,4 +19,5 @@ class AppRouteNames {
   static const programs = 'programs';
   static const referral = 'referral';
   static const account = 'account';
+
 }
